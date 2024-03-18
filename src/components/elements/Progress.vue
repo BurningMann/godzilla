@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue'
-
-const stepCount = ref(5)
-const currentStep = ref(1)
+const props = defineProps({
+  stepCount: Number,
+  currentStep: Number,
+})
 </script>
 
 <template>

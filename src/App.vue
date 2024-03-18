@@ -1,24 +1,88 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import ApplicationLogo from './components/elements/ApplicationLogo.vue'
-import Progress from './components/elements/Progress.vue'
-import IndexLanding from './components/pages/IndexLanding.vue'
-import QuizPage from './components/pages/QuizPage.vue'
-import ResultPage from './components/pages/ResultPage.vue'
+import StartSection from './components/sections/StartSection.vue'
+import RelationshipSection from './components/sections/RelationshipSection.vue'
+import AimSection from './components/sections/AimSection.vue'
+import ResultSection from './components/sections/ResultSection.vue'
+import BirthSection from './components/sections/BirthSection.vue'
+import ReviewsSection from './components/sections/ReviewsSection.vue'
 
-const step = ref(1)
-const data = {
-  gender: null,
-  relationshipStatus: null,
-}
+import { useMainStore } from './stores/main'
+import { storeToRefs } from 'pinia'
 
-const pageType = ref('quiz')
+const store = useMainStore()
+const { currentStep, currentStepData, data, fullScreenPage } = storeToRefs(store)
+const pageType = ref(null)
+const stepsData = ref([
+  {
+    type: 'startStep',
+    componentName: StartSection,
+    slug: 'gender',
+  },
+  {
+    type: 'relationship',
+    componentName: RelationshipSection,
+    slug: 'relationship',
+  },
+  {
+    type: 'aim',
+    componentName: AimSection,
+    slug: 'aim',
+  },
+  {
+    type: 'result',
+    componentName: ResultSection,
+    resultTitle: 'Great! You just set your first goal!',
+    resultContent: 'Let’s keep going so we can get to know <br> you better',
+    resultButtonText: 'Let’s Start!',
+    resultImage: 'step-1-result.jpg',
+    fullScreenPage: true,
+  },
+  {
+    type: 'birth',
+    componentName: BirthSection,
+    slug: 'date_of_birth',
+  },
+  {
+    type: 'reviews',
+    componentName: ReviewsSection,
+    slug: 'reviews',
+    fullScreenPage: true,
+  },
+  {
+    type: 'result',
+    componentName: ResultSection,
+    resultTitle: 'To find out what works for us, we often need to understand what doesn’t.',
+    resultContent:
+      'Now, we need some information to create the astrological synastry blueprint and give you insights on how to build a happy and lasting relationship with your partner!',
+    resultButtonText: 'Continue',
+    resultImage: 'result-2.jpg',
+    fullScreenPage: true,
+  },
+])
+
+watch(
+  currentStep,
+  (val) => {
+    currentStepData.value = stepsData.value[val - 1]
+    pageType.value = stepsData.value[val - 1]?.type
+
+    if (stepsData.value[val - 1]?.fullScreenPage) {
+      fullScreenPage.value = true
+    } else {
+      fullScreenPage.value = false
+    }
+  },
+  { immediate: true }
+)
 </script>
+
 <template>
   <div class="page">
-    <div class="page-inner container" :class="{ 'white-page': pageType !== 'result' }">
-      <div v-show="pageType !== 'result'" class="header">
-        <div class="page-back">
+    <div class="page-inner container" :class="{ 'white-page': !fullScreenPage }">
+      <div v-show="!fullScreenPage" class="header">
+        <div v-if="currentStep > 1" class="page-back" @click="currentStep--">
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_4003_493)">
               <path
@@ -34,12 +98,12 @@ const pageType = ref('quiz')
           </svg>
         </div>
         <ApplicationLogo />
-        <div></div>
       </div>
-      <Progress v-if="pageType !== 'result'" />
-      <IndexLanding v-if="pageType === 'start'" />
-      <QuizPage v-else-if="pageType === 'quiz'" />
-      <ResultPage v-else-if="pageType === 'result'" />
+      <component
+        v-if="stepsData[currentStep - 1]?.componentName"
+        :is="stepsData[currentStep - 1].componentName"
+        :section-data="section"
+      />
     </div>
   </div>
 </template>

@@ -25,12 +25,22 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  size: {
+    type: String,
+    default: 'large',
+  },
+  gray: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const viewButton = computed(() => {
   let str = ''
   if (props.disabled) str = str + ' is-disabled'
   if (props.loading) str = str + ` is-loading`
+  if (props.size) str = str + ` is-${props.size}`
+  if (props.gray) str = str + ` is-gray`
   return str
 })
 </script>
@@ -39,18 +49,31 @@ const viewButton = computed(() => {
 .button {
   text-align: center;
   color: #fff;
-  font-size: 1.8rem;
   background: linear-gradient(90deg, #642b72 0%, #c5426e 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
   width: 100%;
-  height: 5.8rem;
   border-radius: 0.83rem;
-  font-weight: 700;
   border: none;
   transition: 0.3s;
+
+  &.is-gray {
+    background: #f0e9f0;
+    color: var(--c-black);
+  }
+
+  &.is-large {
+    height: 5.8rem;
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+
+  &.is-small {
+    height: 5.2rem;
+    font-size: 1.5rem;
+  }
 
   &.is-disabled {
     opacity: 0.5;

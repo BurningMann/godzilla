@@ -10,7 +10,9 @@ const props = defineProps({
     <div class="progress__line-container">
       <div
         class="progress__line"
-        :style="{ width: currentStep === 1 ? 0 + '%' : (currentStep / stepCount) * 100 + '%' }"
+        :style="{
+          width: currentStep === 0 || currentStep === 1 ? 0 + '%' : `${(100 / (stepCount - 1)) * (currentStep - 1)}%`,
+        }"
       ></div>
     </div>
     <div v-for="step in stepCount" :key="step" class="progress__point" :class="{ 'is-active': currentStep >= step }">
@@ -55,6 +57,7 @@ const props = defineProps({
     height: 0.6rem;
     background: linear-gradient(90deg, #642b72 0%, #c5426e 100%);
     border-radius: 30px;
+    transition: 0.3s ease-in-out;
   }
 
   &__point {
@@ -68,6 +71,7 @@ const props = defineProps({
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.3s ease-in-out;
 
     &.is-active {
       background: #c4426e;

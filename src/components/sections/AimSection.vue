@@ -5,13 +5,13 @@ import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 const store = useMainStore()
-const { currentStep, data } = storeToRefs(store)
+const { currentStep, appData } = storeToRefs(store)
 
 const stepData = ref('')
 
 const setData = () => {
   currentStep.value++
-  data.value.aim = stepData.value
+  appData.value.aim = stepData.value
 }
 
 const variants = ref({
@@ -89,7 +89,7 @@ const variants = ref({
       <div class="step-title">What is your aim right now?</div>
       <div class="variants-list">
         <label
-          v-for="item in variants[data.aimList]"
+          v-for="item in variants[appData.aimList]"
           :key="item.value"
           class="variant-item"
           :class="{ 'is-active': stepData === item.value }"

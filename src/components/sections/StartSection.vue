@@ -2,11 +2,11 @@
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 const store = useMainStore()
-const { currentStep, data } = storeToRefs(store)
+const { currentStep, appData } = storeToRefs(store)
 
 const setData = (value) => {
   currentStep.value++
-  data.value.gender = value
+  appData.value.gender = value
 }
 </script>
 

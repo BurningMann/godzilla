@@ -5,13 +5,13 @@ import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 const store = useMainStore()
-const { currentStep, data } = storeToRefs(store)
+const { currentStep, appData } = storeToRefs(store)
 const relationship = ref('')
 
 const setData = () => {
   currentStep.value++
-  data.value.relationship = relationship.value.value
-  data.value.aimList = relationship.value.aimList
+  appData.value.relationship = relationship.value.value
+  appData.value.aimList = relationship.value.aimList
 }
 
 const variants = ref({
@@ -100,7 +100,7 @@ const variants = ref({
       <div class="step-title">What is your relationship status?</div>
       <div class="variants-list">
         <label
-          v-for="item in variants[data.gender]"
+          v-for="item in variants[appData.gender]"
           :key="item.value"
           class="variant-item"
           :class="{ 'is-active': relationship.value === item.value }"

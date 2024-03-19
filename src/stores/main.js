@@ -5,14 +5,18 @@ export const useMainStore = defineStore('MainStore', {
     fullScreenPage: false,
     currentStep: 1,
     currentStepData: null,
-    data: {
-      gender: 'male',
+    appData: {
+      gender: null,
       relationship: null,
       aim: null,
       date_of_birth: null,
       time_of_birth: null,
       time_were_you_born: null,
-      were_you_born: null,
+      where_were_you_born: null,
+
+      user_history: null,
+      user_talants_and_carrer: null,
+      basic_data_questions: null,
     },
   }),
 

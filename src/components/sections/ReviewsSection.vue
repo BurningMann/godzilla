@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 const store = useMainStore()
-const { currentStep, data } = storeToRefs(store)
+const { currentStep, appData } = storeToRefs(store)
 
 const currentPosition = ref(0)
 const stepsText = {
@@ -85,7 +85,7 @@ onMounted(() => {
       </div>
       <div class="reviews-page__steps">
         <div
-          v-for="(step, index) in stepsText[data.gender]"
+          v-for="(step, index) in stepsText[appData.gender]"
           class="reviews-page__step"
           :class="{ 'is-active': index <= currentPosition }"
         >
@@ -101,7 +101,7 @@ onMounted(() => {
     <div class="footer-box">
       <div class="reviews-conteiner">
         <div
-          v-for="(review, index) in reviewsData[data.gender]"
+          v-for="(review, index) in reviewsData[appData.gender]"
           class="review-card"
           :class="{ 'is-active': index === currentPosition }"
         >

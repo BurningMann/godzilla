@@ -1,12 +1,16 @@
 <script setup>
+import { ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+
 import Progress from '../../components/elements/Progress.vue'
 import Button from '../../components/elements/Button.vue'
-import Dropdown from '../../components/elements/Dropdown.vue'
-import { ref } from 'vue'
-import { storeToRefs } from 'pinia'
+import StepTop from '../../components/elements/StepTop.vue'
+import DatePicker from '../../components/elements/DatePicker.vue'
+import TimePicker from '../../components/elements/TimePicker.vue'
+
 import { useMainStore } from '../../stores/main'
 const store = useMainStore()
-const { currentStep, data, fullScreenPage } = storeToRefs(store)
+const { currentStep, appData, fullScreenPage, currentStepData } = storeToRefs(store)
 
 const stepData = ref('')
 const showSign = ref(false)
@@ -26,16 +30,16 @@ const nextStep = () => {
 
 const setBirthStep = (val) => {
   fullScreenPage.value = !val
-  data.value.time_of_birth = val
+  appData.value.time_of_birth = val
   currentSectionStep.value++
 }
 
-const country = ref('')
-const city = ref('')
-
-const hours = ref(12)
-const minutes = ref(0)
-const dayTime = ref('am')
+const dateOfBirth = ref('')
+const timeOfBirth = ref('')
+const placeOfBirdth = ref({
+  country: '',
+  city: '',
+})
 
 const countryOptions = ref([
   {
@@ -68,21 +72,42 @@ const sectionStepData = [
     stepTitle: 'Where were you born?',
   },
 ]
+
+watch(
+  currentSectionStep,
+  (val) => {
+    fullScreenPage.value = sectionStepData[val]?.fullScreenPage
+    currentStepData.value = sectionStepData[val]
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
   <div class="quiz-page">
-    <Progress v-show="!fullScreenPage" :step-count="sectionStepData.length" :current-step="currentSectionStep" />
+    <Progress v-show="!fullScreenPage" :step-count="sectionStepData.length - 1" :current-step="currentSectionStep" />
     <div>
-      <div v-show="!fullScreenPage" class="step-start-box">
-        <div class="step-title">{{ sectionStepData[currentSectionStep].stepTitle }}</div>
-        <div v-if="sectionStepData[currentSectionStep]?.stepSubtext" class="step-subtext">
-          {{ sectionStepData[currentSectionStep].stepSubtext }}
-        </div>
-      </div>
+      <StepTop v-if="!fullScreenPage" />
 
       <div v-if="currentSectionStep === 0 && !showSign">
-        <div class="footer-box"><Button :text="'Continue'" @click="nextStep" /></div>
+        <DatePicker
+          @date-select="
+            (data) => {
+              dateOfBirth = data
+            }
+          "
+        />
+        <div class="footer-box">
+          <Button
+            :text="'Continue'"
+            @click="
+              () => {
+                appData.date_of_birth = dateOfBirth
+                nextStep()
+              }
+            "
+          />
+        </div>
       </div>
 
       <div v-else-if="currentSectionStep === 0 && showSign">
@@ -113,19 +138,14 @@ const sectionStepData = [
       </div>
 
       <div v-else-if="currentSectionStep === 2">
-        <div v-if="data.time_of_birth">
-          <div class="time-select-box">
-            <el-select v-model="hours" placeholder="Select" size="large">
-              <el-option v-for="item in 12" :key="item" :label="item" :value="item" />
-            </el-select>
-            <el-select v-model="minutes" placeholder="Select" size="large">
-              <el-option v-for="item in 60" :key="item" :label="item" :value="item" />
-            </el-select>
-            <el-select v-model="dayTime" placeholder="Select" size="large">
-              <el-option :label="'AM'" :value="'am'" />
-              <el-option :label="'PM'" :value="'pm'" />
-            </el-select>
-          </div>
+        <div v-if="appData.time_of_birth">
+          <TimePicker
+            @time-select="
+              (data) => {
+                timeOfBirth = data
+              }
+            "
+          />
           <div class="buttons-container">
             <Button
               :text="'I don’t remember'"
@@ -133,8 +153,8 @@ const sectionStepData = [
               :gray="true"
               @click="
                 () => {
-                  data.time_of_birth = false
-                  currentSectionStep++
+                  appData.time_of_birth = false
+                  nextStep()
                 }
               "
             />
@@ -143,14 +163,14 @@ const sectionStepData = [
               :size="'small'"
               @click="
                 () => {
-                  data.time_were_you_born = ''
-                  currentSectionStep++
+                  appData.time_were_you_born = timeOfBirth
+                  nextStep()
                 }
               "
             />
           </div>
         </div>
-        <div v-if="!data.time_of_birth">
+        <div v-if="!appData.time_of_birth">
           <div class="result-page__image">
             <img :src="'dont-worry-result.jpg'" class="fit-cover" />
           </div>
@@ -168,32 +188,22 @@ const sectionStepData = [
 
       <div v-else-if="currentSectionStep === 3">
         <div class="select-list">
-          <el-select v-model="country" placeholder="Select" size="large">
+          <el-select v-model="placeOfBirdth.country" placeholder="Select" size="large">
             <el-option v-for="item in countryOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
-          <el-select v-model="city" placeholder="Select" size="large">
+          <el-select v-model="placeOfBirdth.city" placeholder="Select" size="large">
             <el-option v-for="item in countryOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </div>
         <div class="buttons-container">
-          <Button
-            :text="'Skip this for now'"
-            :size="'small'"
-            :gray="true"
-            @click="
-              () => {
-                data.time_of_birth = false
-                currentSectionStep++
-              }
-            "
-          />
+          <Button :text="'Skip this for now'" :size="'small'" :gray="true" @click="nextStep" />
           <Button
             :text="'Next'"
             :size="'small'"
-            :disabled="!country || !city"
+            :disabled="!placeOfBirdth.country || !placeOfBirdth.city"
             @click="
               () => {
-                currentSectionStep++
+                appData.where_were_you_born = placeOfBirdth
                 currentStep++
               }
             "

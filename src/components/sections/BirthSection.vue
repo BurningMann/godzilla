@@ -112,7 +112,7 @@ watch(
 
       <div v-else-if="currentSectionStep === 0 && showSign">
         <div class="result-page__image">
-          <img :src="'sign-1.png'" />
+          <img :src="'./sign-1.png'" />
         </div>
         <div class="result-page__content">
           <div class="result-page__title"><span class="purple-text">Libra</span> females</div>
@@ -172,7 +172,7 @@ watch(
         </div>
         <div v-if="!appData.time_of_birth">
           <div class="result-page__image">
-            <img :src="'dont-worry-result.jpg'" class="fit-cover" />
+            <img :src="'./dont-worry-result.jpg'" class="fit-cover" />
           </div>
           <div class="result-page__content">
             <div class="result-page__title">Don't worry!</div>

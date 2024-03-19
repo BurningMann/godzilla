@@ -20,11 +20,6 @@ const pageType = ref(null)
 
 const stepsDataSingle = ref([
   {
-    type: 'userTalantsAndCareer',
-    componentName: UserTalantsAndCareer,
-    slug: 'userTalantsAndCareer',
-  },
-  {
     type: 'startStep',
     componentName: StartSection,
     slug: 'gender',

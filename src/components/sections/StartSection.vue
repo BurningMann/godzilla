@@ -19,7 +19,7 @@ const setData = (value) => {
       <div class="gender-container">
         <div class="gender-card" @click="setData('male')">
           <div class="gender-card__image">
-            <img src="../../assets/male-1.png" />
+            <img src="./../../assets/male-1.png" />
           </div>
           <div class="gender-card__button is-blue">
             Male
@@ -33,7 +33,7 @@ const setData = (value) => {
         </div>
         <div class="gender-card" @click="setData('female')">
           <div class="gender-card__image">
-            <img src="../../assets/female-1.png" />
+            <img src="./../../assets/female-1.png" />
           </div>
           <div class="gender-card__button is-pink">
             Female

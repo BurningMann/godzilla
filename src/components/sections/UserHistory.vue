@@ -3,19 +3,27 @@ import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 
-import Progress from '../../components/elements/Progress.vue'
 import MultipleList from '../../components/elements/MultipleList.vue'
 import SingleList from '../../components/elements/SingleList.vue'
 import GradingList from '../../components/elements/GradingList.vue'
 import StepTop from '../../components/elements/StepTop.vue'
+import BackArrow from '../../components/elements/BackArrow.vue'
 import ResultSection from '../../components/sections/ResultSection.vue'
 
 const store = useMainStore()
-const { appData, fullScreenPage, currentStepData } = storeToRefs(store)
+const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData } = storeToRefs(store)
 
 const currentSectionStep = ref(0)
 
 const form = ref({})
+
+const prevStep = () => {
+  if (currentSectionStep.value) {
+    currentSectionStep.value--
+  } else {
+    currentStep.value--
+  }
+}
 
 const nextStep = () => {
   appData.value.user_history = { ...form.value }
@@ -173,6 +181,7 @@ watch(
   (val) => {
     fullScreenPage.value = sectionStepData[val]?.fullScreenPage
     currentStepData.value = sectionStepData[val]
+    stepInfoData.value.currentStep = currentSectionStep.value + stepInfoData.value.startStep
   },
   { immediate: true }
 )
@@ -180,8 +189,7 @@ watch(
 
 <template>
   <div class="quiz-page">
-    <Progress v-show="!fullScreenPage" :step-count="sectionStepData.length - 1" :current-step="currentSectionStep" />
-
+    <BackArrow v-if="!fullScreenPage" @click="prevStep" />
     <div>
       <StepTop v-if="!fullScreenPage" />
 

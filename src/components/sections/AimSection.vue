@@ -1,21 +1,25 @@
 <script setup>
-import Progress from '../../components/elements/Progress.vue'
-import Button from '../../components/elements/Button.vue'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { storeToRefs } from 'pinia'
+
+import Button from '../../components/elements/Button.vue'
+import StepTop from '../../components/elements/StepTop.vue'
+import BackArrow from '../../components/elements/BackArrow.vue'
+
 import { useMainStore } from '../../stores/main'
 const store = useMainStore()
-const { currentStep, appData } = storeToRefs(store)
+const { currentStep, appData, stepInfoData } = storeToRefs(store)
 
 const stepData = ref('')
 
 const setData = () => {
-  currentStep.value++
   appData.value.aim = stepData.value
+  currentStep.value++
+  stepInfoData.currentStep++
 }
 
 const variants = ref({
-  1: [
+  single: [
     {
       icon: '💘',
       label: 'Find my perfect partner',
@@ -52,7 +56,7 @@ const variants = ref({
       value: 'all_the_above',
     },
   ],
-  2: [
+  partner: [
     {
       icon: '🥰',
       label: 'Improve current relationship',
@@ -80,16 +84,26 @@ const variants = ref({
     },
   ],
 })
+
+const currentStepList = computed(() => {
+  if (
+    appData.value.relationship &&
+    ['relationship', 'married', 'complicated', 'other'].includes(appData.value.relationship)
+  ) {
+    return variants.value.partner
+  }
+  return variants.value.single
+})
 </script>
 
 <template>
   <div class="quiz-page">
-    <Progress :step-count="2" :current-step="1" />
+    <BackArrow v-if="!fullScreenPage" @click="currentStep--" />
     <div>
-      <div class="step-title">What is your aim right now?</div>
+      <StepTop :local-title="`What is your <span class='purple-text-1'>aim right now?</span>`" />
       <div class="variants-list">
         <label
-          v-for="item in variants[appData.aimList]"
+          v-for="item in currentStepList"
           :key="item.value"
           class="variant-item"
           :class="{ 'is-active': stepData === item.value }"

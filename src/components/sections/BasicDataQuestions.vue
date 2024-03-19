@@ -3,16 +3,16 @@ import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 
-import Progress from '../../components/elements/Progress.vue'
 import Button from '../../components/elements/Button.vue'
 import SingleList from '../../components/elements/SingleList.vue'
 import StepTop from '../../components/elements/StepTop.vue'
 import ResultSection from '../../components/sections/ResultSection.vue'
 import DatePicker from '../../components/elements/DatePicker.vue'
+import BackArrow from '../../components/elements/BackArrow.vue'
 import TimePicker from '../../components/elements/TimePicker.vue'
 
 const store = useMainStore()
-const { appData, fullScreenPage, currentStepData } = storeToRefs(store)
+const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData } = storeToRefs(store)
 
 const currentSectionStep = ref(0)
 
@@ -24,6 +24,14 @@ const form = ref({
   what_time_your_partner_was_born: '',
   where_was_your_partner_born: '',
 })
+
+const prevStep = () => {
+  if (currentSectionStep.value) {
+    currentSectionStep.value--
+  } else {
+    currentStep.value--
+  }
+}
 
 const nextStep = () => {
   appData.value.basic_data_questions = { ...form.value }
@@ -138,6 +146,7 @@ watch(
   (val) => {
     fullScreenPage.value = sectionStepData[val]?.fullScreenPage
     currentStepData.value = sectionStepData[val]
+    stepInfoData.value.currentStep = currentSectionStep.value + stepInfoData.value.startStep
   },
   { immediate: true }
 )
@@ -145,8 +154,7 @@ watch(
 
 <template>
   <div class="quiz-page">
-    <Progress v-show="!fullScreenPage" :step-count="sectionStepData.length - 1" :current-step="currentSectionStep" />
-
+    <BackArrow v-if="!fullScreenPage" @click="prevStep" />
     <div>
       <StepTop v-if="!fullScreenPage" />
 
@@ -161,7 +169,7 @@ watch(
               </div>
               <div class="result-page__content">
                 <div class="result-page__title">
-                  <span class="purple-text">Gemini</span> Female + <span class="purple-text">Taurus</span> Male
+                  <span class="purple-text-1">Gemini</span> Female + <span class="purple-text-1">Taurus</span> Male
                 </div>
                 <div class="result-page__text">
                   The celestial energies uniquely intertwine when a Gemini woman interacts with a Taurus man.

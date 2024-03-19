@@ -6,48 +6,20 @@ const store = useMainStore()
 const { currentStep, appData } = storeToRefs(store)
 
 const currentPosition = ref(0)
-const stepsText = {
-  female: ['Connecting to database', 'Calculating your personal ascendant', 'Preparing  your astrology reading'],
-  male: ['Connecting to database', 'Calculating your personal ascendant', 'Preparing  your path'],
-}
+const stepsText = ['Connecting to database', 'Calculating your personal ascendant', 'Preparing  your astrology reading']
+
 const reviewsData = {
   female: [
     {
       name: 'Sarah J.',
-      text: "“Astoundingly precise readings! It's helped me tremendously in understanding both myself and my significant other.”",
-      time: '8:00 AM',
-      stars: 5,
-    },
-    {
-      name: 'Liam69',
-      text: "“They offer a wealth of insights. I've never come across something so accurate in the realm of astrology.”",
-      time: '10:15 AM',
-      stars: 5,
-    },
-    {
-      name: 'OliviaSky',
-      text: `"I followed the advice from my reading for a week, and it really did improve my life. Highly recommend!`,
-      time: '10:45 PM',
+      text: `"I followed the advice from my reading for a week, and it really did improve my life. <br> Highly recommend!"`,
       stars: 5,
     },
   ],
   male: [
     {
-      name: 'Daniel',
+      name: 'Daniel A.',
       text: `I’ve always been curious about astrology, but never thought I can find smth real on until I found this. It’s a real game-changer! The readings are comprehensive and helpful in planning my future.`,
-      time: '9:45 AM',
-      stars: 5,
-    },
-    {
-      name: 'Mike_fromLA',
-      text: `Amazing! That’s the only word to describe this app. The depth and accuracy of the readings blew me away. It’s helped me understand patterns in my life and relationships.`,
-      time: '11:35 AM',
-      stars: 5,
-    },
-    {
-      name: 'Ethan',
-      text: `The predictions are detailed and have been incredibly useful in my personal and professional life. This site meets my needs perfectly.`,
-      time: '3:30 PM',
       stars: 5,
     },
   ],
@@ -60,7 +32,7 @@ onMounted(() => {
       clearInterval(interval)
       currentStep.value++
     }
-  }, 3000)
+  }, 1000)
 })
 </script>
 
@@ -85,9 +57,9 @@ onMounted(() => {
       </div>
       <div class="reviews-page__steps">
         <div
-          v-for="(step, index) in stepsText[appData.gender]"
+          v-for="(step, index) in stepsText"
           class="reviews-page__step"
-          :class="{ 'is-active': index <= currentPosition }"
+          :class="{ 'is-active': index <= currentPosition, 'is-higlited': index === currentPosition }"
         >
           {{ step }}
         </div>
@@ -100,11 +72,7 @@ onMounted(() => {
     </div>
     <div class="footer-box">
       <div class="reviews-conteiner">
-        <div
-          v-for="(review, index) in reviewsData[appData.gender]"
-          class="review-card"
-          :class="{ 'is-active': index === currentPosition }"
-        >
+        <div v-for="review in reviewsData[appData.gender]" class="review-card is-active">
           <div class="review-card__name">{{ review.name }}</div>
           <div class="review-card__stars">
             <svg width="91" height="18" viewBox="0 0 91 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,8 +82,7 @@ onMounted(() => {
               />
             </svg>
           </div>
-          <div class="review-card__text">{{ review.text }}</div>
-          <div class="review-card__time">{{ review.time }}</div>
+          <div class="review-card__text" v-html="review.text" />
         </div>
       </div>
     </div>
@@ -150,9 +117,13 @@ onMounted(() => {
     color: rgba(255, 255, 255, 0.5);
     height: 0px;
     overflow: hidden;
+    transition: 0.3s;
 
     &.is-active {
       height: max-content;
+    }
+
+    &.is-higlited {
       color: rgba(255, 255, 255, 1);
     }
   }

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, computed } from 'vue'
 import AppHeader from './components/elements/AppHeader.vue'
+import Progress from './components/elements/Progress.vue'
 import StartSection from './components/sections/StartSection.vue'
 import RelationshipSection from './components/sections/RelationshipSection.vue'
 import AimSection from './components/sections/AimSection.vue'
@@ -15,7 +16,7 @@ import { useMainStore } from './stores/main'
 import { storeToRefs } from 'pinia'
 
 const store = useMainStore()
-const { currentStep, currentStepData, appData, fullScreenPage } = storeToRefs(store)
+const { currentStep, currentStepData, appData, fullScreenPage, stepInfoData } = storeToRefs(store)
 const pageType = ref(null)
 
 const stepsDataSingle = ref([
@@ -33,6 +34,13 @@ const stepsDataSingle = ref([
     type: 'aim',
     componentName: AimSection,
     slug: 'aim',
+    stepData: {
+      sectionsCount: 1,
+      currentSection: 1,
+      stepCount: 5,
+      currentStep: 1,
+      startStep: 1,
+    },
   },
   {
     type: 'result',
@@ -47,6 +55,13 @@ const stepsDataSingle = ref([
     type: 'birth',
     componentName: BirthSection,
     slug: 'date_of_birth',
+    stepData: {
+      sectionsCount: 1,
+      currentSection: 1,
+      stepCount: 5,
+      currentStep: 1,
+      startStep: 2,
+    },
   },
   {
     type: 'reviews',
@@ -60,7 +75,7 @@ const stepsDataSingle = ref([
     resultTitle: 'To find out what works for us, we often need to understand what doesn’t.',
     resultContent:
       'Now, we need some information to create the astrological synastry blueprint and give you insights on how to build a happy and lasting relationship with your partner!',
-    resultButtonText: 'Continue',
+    resultButtonText: 'Let’s finish this!',
     resultImage: 'result-2.jpg',
     fullScreenPage: true,
   },
@@ -69,11 +84,25 @@ const stepsDataSingle = ref([
     type: 'userhistory',
     componentName: UserHistory,
     slug: 'userhistory',
+    stepData: {
+      sectionsCount: 3,
+      currentSection: 2,
+      stepCount: 11,
+      currentStep: 1,
+      startStep: 1,
+    },
   },
   {
     type: 'userTalantsAndCareer',
     componentName: UserTalantsAndCareer,
     slug: 'userTalantsAndCareer',
+    stepData: {
+      sectionsCount: 3,
+      currentSection: 2,
+      stepCount: 11,
+      currentStep: 1,
+      startStep: 8,
+    },
   },
 ])
 const stepsDataCurrentPartner = ref([
@@ -91,6 +120,13 @@ const stepsDataCurrentPartner = ref([
     type: 'aim',
     componentName: AimSection,
     slug: 'aim',
+    stepData: {
+      sectionsCount: 1,
+      currentSection: 1,
+      stepCount: 5,
+      currentStep: 1,
+      startStep: 1,
+    },
   },
   {
     type: 'result',
@@ -126,6 +162,13 @@ const stepsDataCurrentPartner = ref([
     type: 'basicDataQuestions',
     componentName: BasicDataQuestions,
     slug: 'basicDataQuestions',
+    stepData: {
+      sectionsCount: 3,
+      currentSection: 2,
+      stepCount: 6,
+      currentStep: 1,
+      startStep: 1,
+    },
   },
 ])
 
@@ -150,6 +193,10 @@ watch(
     } else {
       fullScreenPage.value = false
     }
+
+    if (currentStepTemplate.value[val - 1]?.stepData) {
+      stepInfoData.value = currentStepTemplate.value[val - 1].stepData
+    }
   },
   { immediate: true }
 )
@@ -159,6 +206,7 @@ watch(
   <div class="page">
     <div class="page-inner container" :class="{ 'white-page': !fullScreenPage }">
       <AppHeader v-show="!fullScreenPage" />
+      <Progress v-if="stepInfoData.sectionsCount" v-show="!fullScreenPage" />
       <component
         v-if="currentStepTemplate[currentStep - 1]?.componentName"
         :is="currentStepTemplate[currentStep - 1]?.componentName"

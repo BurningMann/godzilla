@@ -18,6 +18,14 @@ export const useMainStore = defineStore('MainStore', {
       user_talants_and_carrer: null,
       basic_data_questions: null,
     },
+
+    stepInfoData: {
+      sectionsCount: 0,
+      currentSection: 0,
+      stepCount: 0,
+      currentStep: 0,
+      startStep: 0,
+    },
   }),
 
   getters: {},

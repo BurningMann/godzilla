@@ -1,7 +1,17 @@
 <script setup>
-const props = defineProps({
-  stepCount: Number,
-  currentStep: Number,
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useMainStore } from '../../stores/main'
+
+const store = useMainStore()
+const { stepInfoData } = storeToRefs(store)
+
+const percent = computed(() => {
+  const sectionPercent = 100 / stepInfoData.value.sectionsCount
+  return (
+    sectionPercent * (stepInfoData.value.currentSection - 1) +
+    (sectionPercent / stepInfoData.value.stepCount) * stepInfoData.value.currentStep
+  )
 })
 </script>
 
@@ -11,13 +21,19 @@ const props = defineProps({
       <div
         class="progress__line"
         :style="{
-          width: currentStep === 0 || currentStep === 1 ? 0 + '%' : `${(100 / (stepCount - 1)) * (currentStep - 1)}%`,
+          width: `${percent}%`,
         }"
       ></div>
     </div>
-    <div v-for="step in stepCount" :key="step" class="progress__point" :class="{ 'is-active': currentStep >= step }">
+    <div class="progress__point is-active"></div>
+    <div
+      v-for="step in stepInfoData.sectionsCount === 1 ? 0 : stepInfoData.sectionsCount"
+      :key="step"
+      class="progress__point"
+      :class="{ 'is-active': stepInfoData.currentSection - 1 >= step }"
+    >
       <svg
-        v-if="currentStep >= step"
+        v-if="stepInfoData.currentSection - 1 >= step"
         width="8"
         height="6"
         viewBox="0 0 8 6"

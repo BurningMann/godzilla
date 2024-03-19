@@ -13,13 +13,13 @@ const setData = (value) => {
 <template>
   <div class="index-landing">
     <h1>Understand Yourself and Improve Relationships with Astrology</h1>
-    <div class="step-title is-title">1-Minute Personal Assessment</div>
+    <div class="step-title purple-text-1">1-Minute Personal Assessment</div>
     <div class="gender-section">
       <div class="gender-section__title">Select your gender:</div>
       <div class="gender-container">
         <div class="gender-card" @click="setData('male')">
           <div class="gender-card__image">
-            <img src="./../../assets/male-1.png" />
+            <img src="/male-1.png" />
           </div>
           <div class="gender-card__button is-blue">
             Male
@@ -33,7 +33,7 @@ const setData = (value) => {
         </div>
         <div class="gender-card" @click="setData('female')">
           <div class="gender-card__image">
-            <img src="./../../assets/female-1.png" />
+            <img src="/female-1.png" />
           </div>
           <div class="gender-card__button is-pink">
             Female

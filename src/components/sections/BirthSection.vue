@@ -2,20 +2,26 @@
 import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import Progress from '../../components/elements/Progress.vue'
 import Button from '../../components/elements/Button.vue'
 import StepTop from '../../components/elements/StepTop.vue'
+import BackArrow from '../../components/elements/BackArrow.vue'
 import DatePicker from '../../components/elements/DatePicker.vue'
 import TimePicker from '../../components/elements/TimePicker.vue'
 
 import { useMainStore } from '../../stores/main'
 const store = useMainStore()
-const { currentStep, appData, fullScreenPage, currentStepData } = storeToRefs(store)
+const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData } = storeToRefs(store)
 
-const stepData = ref('')
 const showSign = ref(false)
-const showButton = ref(true)
 const currentSectionStep = ref(0)
+
+const prevStep = () => {
+  if (currentSectionStep.value) {
+    currentSectionStep.value--
+  } else {
+    currentStep.value--
+  }
+}
 
 const nextStep = () => {
   if (currentSectionStep.value === 0 && !showSign.value) {
@@ -26,12 +32,6 @@ const nextStep = () => {
     fullScreenPage.value = false
     showSign.value = false
   }
-}
-
-const setBirthStep = (val) => {
-  fullScreenPage.value = !val
-  appData.value.time_of_birth = val
-  currentSectionStep.value++
 }
 
 const dateOfBirth = ref('')
@@ -48,6 +48,7 @@ const countryOptions = ref([
   },
   {
     label: 'United States1',
+
     value: 'United States1',
   },
   {
@@ -67,17 +68,23 @@ const sectionStepData = [
   {
     stepTitle: 'What time were you born?',
     stepSubtext: 'We use NASA data to determine the precise planetary positions in the sky during your birth',
+    slug: 'time_were_you_born',
   },
   {
     stepTitle: 'Where were you born?',
+    stepSubtext: 'This helps us determine the specific time zone associated with your place of birth',
   },
 ]
 
 watch(
   currentSectionStep,
   (val) => {
-    fullScreenPage.value = sectionStepData[val]?.fullScreenPage
+    if (sectionStepData[val]?.slug === 'time_were_you_born' && !appData.value.time_of_birth) {
+      fullScreenPage.value = true
+    }
+
     currentStepData.value = sectionStepData[val]
+    stepInfoData.value.currentStep = currentSectionStep.value + stepInfoData.value.startStep
   },
   { immediate: true }
 )
@@ -85,7 +92,7 @@ watch(
 
 <template>
   <div class="quiz-page">
-    <Progress v-show="!fullScreenPage" :step-count="sectionStepData.length - 1" :current-step="currentSectionStep" />
+    <BackArrow v-if="!fullScreenPage" @click="prevStep" />
     <div>
       <StepTop v-if="!fullScreenPage" />
 
@@ -109,13 +116,12 @@ watch(
           />
         </div>
       </div>
-
       <div v-else-if="currentSectionStep === 0 && showSign">
         <div class="result-page__image">
           <img :src="'./sign-1.png'" />
         </div>
         <div class="result-page__content">
-          <div class="result-page__title"><span class="purple-text">Libra</span> females</div>
+          <div class="result-page__title"><span class="purple-text-1">Libra</span> females</div>
           <div class="result-page__text">
             Sparkling with wit, the Gemini female charms with her versatility, constantly adapting to change.
             <br /><br />
@@ -128,10 +134,26 @@ watch(
 
       <div v-else-if="currentSectionStep === 1">
         <div class="variants-list">
-          <div class="variant-item" @click="setBirthStep(true)">
+          <div
+            class="variant-item"
+            @click="
+              () => {
+                appData.time_of_birth = true
+                currentSectionStep++
+              }
+            "
+          >
             <div class="variant-item__text">Yes</div>
           </div>
-          <div class="variant-item" @click="setBirthStep(false)">
+          <div
+            class="variant-item"
+            @click="
+              () => {
+                appData.time_of_birth = false
+                currentSectionStep++
+              }
+            "
+          >
             <div class="variant-item__text">No</div>
           </div>
         </div>
@@ -153,8 +175,8 @@ watch(
               :gray="true"
               @click="
                 () => {
+                  fullScreenPage = true
                   appData.time_of_birth = false
-                  nextStep()
                 }
               "
             />
@@ -196,7 +218,18 @@ watch(
           </el-select>
         </div>
         <div class="buttons-container">
-          <Button :text="'Skip this for now'" :size="'small'" :gray="true" @click="nextStep" />
+          <Button
+            :text="'Skip this for now'"
+            :size="'small'"
+            :gray="true"
+            @click="
+              () => {
+                appData.where_were_you_born = null
+                currentStep++
+                stepInfoData.sectionsCount = 0
+              }
+            "
+          />
           <Button
             :text="'Next'"
             :size="'small'"
@@ -205,6 +238,7 @@ watch(
               () => {
                 appData.where_were_you_born = placeOfBirdth
                 currentStep++
+                stepInfoData.sectionsCount = 0
               }
             "
           />

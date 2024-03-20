@@ -34,6 +34,8 @@ const nextStep = () => {
   }
 }
 
+const timeOfBirthSwith = ref(null)
+
 const dateOfBirth = ref('')
 const timeOfBirth = ref('')
 const placeOfBirdth = ref({
@@ -106,7 +108,7 @@ watch(
         />
         <div class="footer-box">
           <Button
-            :text="'Continue'"
+            :text="'Next'"
             @click="
               () => {
                 appData.date_of_birth = dateOfBirth
@@ -134,28 +136,26 @@ watch(
 
       <div v-else-if="currentSectionStep === 1">
         <div class="variants-list">
-          <div
-            class="variant-item"
-            @click="
-              () => {
-                appData.time_of_birth = true
-                currentSectionStep++
-              }
-            "
-          >
+          <label class="variant-item" :class="{ 'is-active': timeOfBirthSwith === true }">
+            <input v-model="timeOfBirthSwith" type="radio" :value="true" />
             <div class="variant-item__text">Yes</div>
-          </div>
-          <div
-            class="variant-item"
+          </label>
+          <label class="variant-item" :class="{ 'is-active': timeOfBirthSwith === false }">
+            <input v-model="timeOfBirthSwith" type="radio" :value="false" />
+            <div class="variant-item__text">No</div>
+          </label>
+        </div>
+        <div class="footer-box">
+          <Button
+            :text="'Next'"
+            :disabled="timeOfBirthSwith === null"
             @click="
               () => {
-                appData.time_of_birth = false
+                appData.time_of_birth = timeOfBirthSwith
                 currentSectionStep++
               }
             "
-          >
-            <div class="variant-item__text">No</div>
-          </div>
+          />
         </div>
       </div>
 

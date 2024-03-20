@@ -61,7 +61,7 @@ const sectionStepData = [
     ],
   },
   {
-    stepTitle: 'Do you agree with this statement?',
+    stepTitle: 'Do you relate with this statement?',
     stepSubtext: '«I find solace and comfort in spending time alone»',
     type: 'grading',
     slug: 'do_you_agree_with_this_statement',
@@ -196,6 +196,7 @@ watch(
       <div>
         <SingleList
           v-if="sectionStepData[currentSectionStep]?.type === 'list'"
+          :key="currentSectionStep"
           :list="sectionStepData[currentSectionStep]?.list"
           @next-step="
             (data) => {
@@ -205,6 +206,7 @@ watch(
         />
         <MultipleList
           v-if="sectionStepData[currentSectionStep]?.type === 'multipleList'"
+          :key="currentSectionStep"
           :list="sectionStepData[currentSectionStep]?.list"
           @next-step="
             (data) => {
@@ -214,6 +216,7 @@ watch(
         />
         <GradingList
           v-if="sectionStepData[currentSectionStep]?.type === 'grading'"
+          :key="currentSectionStep"
           :list="sectionStepData[currentSectionStep]?.list"
           @next-step="
             (data) => {

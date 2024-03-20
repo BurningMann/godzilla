@@ -14,6 +14,7 @@ const listData = ref([])
 
 <template>
   <div>
+    <div class="variants-list__message">Multiple choice supported</div>
     <div class="variants-list">
       <label
         v-for="item in list"
@@ -22,12 +23,13 @@ const listData = ref([])
         :class="{ 'is-active': listData.includes(item.value) }"
       >
         <input v-model="listData" type="checkbox" :value="item.value" />
+        <div v-if="item.icon" class="variant-item__icon">{{ item.icon }}</div>
         <div class="variant-item__text">{{ item.label }}</div>
+        <div class="variant-item__point"></div>
       </label>
     </div>
-    <div class="variants-list__message">Multiple choice supported</div>
     <div class="footer-box">
-      <Button :text="'Continue'" :disabled="!listData.length" @click="$emit('nextStep', listData)" />
+      <Button :text="'Next'" :disabled="!listData.length" @click="$emit('nextStep', listData)" />
     </div>
   </div>
 </template>

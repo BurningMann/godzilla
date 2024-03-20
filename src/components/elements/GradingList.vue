@@ -29,5 +29,9 @@ const listData = ref('')
         <div class="variant-item__text">{{ item }}</div>
       </div>
     </div>
+    <div class="variants-list__grade-text">
+      <div>Not at all</div>
+      <div>Absolutely</div>
+    </div>
   </div>
 </template>

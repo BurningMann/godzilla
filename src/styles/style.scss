@@ -213,10 +213,18 @@ h1 {
   gap: 1rem;
 
   &__message {
-    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     text-align: center;
     font-size: 1.4rem;
     color: rgba(45, 45, 45, 0.6);
+  }
+
+  &__grade-text {
+    display: flex;
+    justify-content: space-between;
+    color: var(--c-black);
+    margin-top: 1.5rem;
+    font-size: 1.4rem;
   }
 
   &.is-horizontal {
@@ -237,6 +245,7 @@ h1 {
   gap: 0.7rem;
   padding: 1rem 1.7rem;
   cursor: pointer;
+  position: relative;
 
   &__icon {
     font-size: 3rem;
@@ -247,6 +256,34 @@ h1 {
     color: var(--c-black);
     font-size: 1.5rem;
     font-weight: 600;
+  }
+
+  &__point {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: transparent;
+    transition: 0.3s;
+    border: 1px solid var(--c-title);
+    position: absolute;
+    right: 1.7rem;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    &::before {
+      content: "";
+      display: block;
+      width: 1.1rem;
+      height: 1.1rem;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0;
+      transition: 0.3s;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
   input {
@@ -270,14 +307,30 @@ h1 {
     .variant-item__text {
       color: #fff;
     }
+
+    .variant-item__point {
+      border-color: #fff;
+
+      &::before {
+        opacity: 1;
+      }
+    }
   }
 
   &:hover {
-    @media screen and (max-width: 500px) {
+    @media screen and (min-width: 500px) {
       background: linear-gradient(90deg, #642b72 0%, #c5426e 100%);
 
       .variant-item__text {
         color: #fff;
+      }
+
+      .variant-item__point {
+        border-color: #fff;
+
+        &::before {
+          opacity: 1;
+        }
       }
     }
   }

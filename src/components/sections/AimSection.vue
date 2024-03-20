@@ -115,6 +115,6 @@ const currentStepList = computed(() => {
       </div>
     </div>
 
-    <div class="footer-box"><Button :text="'Continue'" :disabled="!stepData" @click="setData" /></div>
+    <div class="footer-box"><Button :text="'Next'" :disabled="!stepData" @click="setData" /></div>
   </div>
 </template>

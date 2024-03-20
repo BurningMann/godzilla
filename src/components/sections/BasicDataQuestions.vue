@@ -91,10 +91,12 @@ const sectionStepData = [
     slug: 'what_is_your_partner_gender',
     list: [
       {
+        icon: '👨',
         label: 'Male',
         value: 'Male',
       },
       {
+        icon: '👩‍🦰️',
         label: 'Female',
         value: 'Female',
       },
@@ -144,7 +146,17 @@ const sectionStepData = [
 watch(
   currentSectionStep,
   (val) => {
-    fullScreenPage.value = sectionStepData[val]?.fullScreenPage
+    console.log(sectionStepData[val]?.slug)
+    console.log(form.value.do_you_know_what_time_your_artner_was_born)
+    if (
+      sectionStepData[val]?.slug === 'what_time_your_partner_was_born' &&
+      !form.value.do_you_know_what_time_your_artner_was_born
+    ) {
+      fullScreenPage.value = true
+    } else {
+      fullScreenPage.value = sectionStepData[val]?.fullScreenPage
+    }
+
     currentStepData.value = sectionStepData[val]
     stepInfoData.value.currentStep = currentSectionStep.value + stepInfoData.value.startStep
   },
@@ -231,8 +243,8 @@ watch(
                 :gray="true"
                 @click="
                   () => {
+                    fullScreenPage = true
                     form.do_you_know_what_time_your_artner_was_born = false
-                    nextStep()
                   }
                 "
               />

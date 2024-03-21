@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 export const useMainStore = defineStore('MainStore', {
   state: () => ({
     fullScreenPage: false,
-    currentStep: 1,
+    currentStep: 0,
     currentStepData: null,
     appData: {
       gender: null,

@@ -4,8 +4,12 @@ import Button from '../../components/elements/Button.vue'
 
 defineProps({
   list: {
-    type: String,
+    type: Array,
     default: '',
+  },
+  buttonText: {
+    type: String,
+    default: 'Next',
   },
 })
 
@@ -27,7 +31,7 @@ const listData = ref(null)
       </label>
     </div>
     <div class="footer-box">
-      <Button :text="'Next'" :disabled="listData === null" @click="$emit('nextStep', listData)" />
+      <Button :text="buttonText" :disabled="listData === null" @click="$emit('nextStep', listData)" />
     </div>
   </div>
 </template>

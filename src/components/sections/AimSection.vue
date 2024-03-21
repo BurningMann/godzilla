@@ -1,24 +1,22 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import Button from '../../components/elements/Button.vue'
 import StepTop from '../../components/elements/StepTop.vue'
 import BackArrow from '../../components/elements/BackArrow.vue'
+import SingleList from '../../components/elements/SingleList.vue'
 
 import { useMainStore } from '../../stores/main'
 const store = useMainStore()
-const { currentStep, appData, stepInfoData } = storeToRefs(store)
+const { currentStep, appData, stepInfoData, fullScreenPage } = storeToRefs(store)
 
-const stepData = ref('')
-
-const setData = () => {
-  appData.value.aim = stepData.value
+const setData = (slug, data) => {
+  appData.value[slug] = data
   currentStep.value++
   stepInfoData.currentStep++
 }
 
-const variants = ref({
+const sectionStepData = {
   single: [
     {
       icon: '💘',
@@ -83,16 +81,16 @@ const variants = ref({
       value: 'all_the_above',
     },
   ],
-})
+}
 
 const currentStepList = computed(() => {
   if (
     appData.value.relationship &&
     ['relationship', 'married', 'complicated', 'other'].includes(appData.value.relationship)
   ) {
-    return variants.value.partner
+    return sectionStepData.partner
   }
-  return variants.value.single
+  return sectionStepData.single
 })
 </script>
 
@@ -101,20 +99,14 @@ const currentStepList = computed(() => {
     <BackArrow v-if="!fullScreenPage" @click="currentStep--" />
     <div>
       <StepTop :local-title="`What is your <span class='purple-text-1'>aim right now?</span>`" />
-      <div class="variants-list">
-        <label
-          v-for="item in currentStepList"
-          :key="item.value"
-          class="variant-item"
-          :class="{ 'is-active': stepData === item.value }"
-        >
-          <input v-model="stepData" type="radio" :value="item.value" />
-          <div class="variant-item__icon">{{ item.icon }}</div>
-          <div class="variant-item__text">{{ item.label }}</div>
-        </label>
-      </div>
+      <SingleList
+        :list="currentStepList"
+        @next-step="
+          (data) => {
+            setData('aim', data)
+          }
+        "
+      />
     </div>
-
-    <div class="footer-box"><Button :text="'Next'" :disabled="!stepData" @click="setData" /></div>
   </div>
 </template>

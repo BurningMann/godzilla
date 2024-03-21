@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 defineProps({
   list: {
-    type: String,
+    type: Array,
     default: '',
   },
 })

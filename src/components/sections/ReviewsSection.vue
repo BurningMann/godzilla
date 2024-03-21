@@ -1,4 +1,5 @@
 <script setup>
+import LoadingPoints from '../elements/LoadingPoints.vue'
 import { ref, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
@@ -64,11 +65,7 @@ onMounted(() => {
           {{ step }}
         </div>
       </div>
-      <div class="loading">
-        <div class="loading__point">.</div>
-        <div class="loading__point">.</div>
-        <div class="loading__point">.</div>
-      </div>
+      <LoadingPoints />
     </div>
     <div class="footer-box">
       <div class="reviews-conteiner">

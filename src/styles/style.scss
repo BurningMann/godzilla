@@ -79,31 +79,11 @@ video {
   }
 }
 
-.page {
-  min-height: 100svh;
-}
-
 .container {
   width: 100%;
   max-width: 50rem;
   margin: 0 auto;
   position: relative;
-}
-
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: var(--c-light-gray) var(--c-primary);
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 6px;
-    background: var(--c-light-gray);
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 6px;
-    background-color: var(--c-primary);
-  }
 }
 
 .hidden-scrollbar {
@@ -113,6 +93,10 @@ video {
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.page {
+  min-height: 100svh;
 }
 
 .page-inner {
@@ -338,7 +322,6 @@ h1 {
 
 .result-page {
   padding-bottom: 12rem;
-  /*   padding-top: 2.4rem; */
 
   &__image {
     position: relative;
@@ -398,32 +381,4 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-.loading {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 20px;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.5);
-
-  @for $i from 1 through 3 {
-    .loading__point:nth-child(#{$i}) {
-      animation: flash 1s #{0.5 * $i}s linear infinite;
-    }
-  }
-}
-
-@keyframes flash {
-  0% {
-    color: rgba(255, 255, 255, 0.5);
-  }
-  50% {
-    color: rgba(255, 255, 255, 1);
-  }
-  100% {
-    color: rgba(255, 255, 255, 0.5);
-  }
 }

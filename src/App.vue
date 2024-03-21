@@ -19,183 +19,132 @@ const store = useMainStore()
 const { currentStep, currentStepData, appData, fullScreenPage, stepInfoData } = storeToRefs(store)
 const pageType = ref(null)
 
-const stepsDataSingle = ref([
-  {
-    type: 'startStep',
-    componentName: StartSection,
-    slug: 'gender',
-  },
-  {
-    type: 'relationship',
-    componentName: RelationshipSection,
-    slug: 'relationship',
-  },
-  {
-    type: 'aim',
-    componentName: AimSection,
-    slug: 'aim',
-    stepData: {
-      sectionsCount: 1,
-      currentSection: 1,
-      stepCount: 5,
-      currentStep: 1,
-      startStep: 1,
+const stepsData = {
+  firstSection: [
+    {
+      type: 'startStep',
+      componentName: StartSection,
+      slug: 'gender',
     },
-  },
-  {
-    type: 'result',
-    componentName: ResultSection,
-    resultTitle: 'Great! You just set your first goal!',
-    resultContent: 'Let’s keep going so we can get to know <br> you better',
-    resultButtonText: 'Let’s Start!',
-    resultImage: 'step-1-result.jpg',
-    fullScreenPage: true,
-  },
-  {
-    type: 'birth',
-    componentName: BirthSection,
-    slug: 'date_of_birth',
-    stepData: {
-      sectionsCount: 1,
-      currentSection: 1,
-      stepCount: 5,
-      currentStep: 1,
-      startStep: 2,
+    {
+      type: 'relationship',
+      componentName: RelationshipSection,
+      slug: 'relationship',
     },
-  },
-  {
-    type: 'reviews',
-    componentName: ReviewsSection,
-    slug: 'reviews',
-    fullScreenPage: true,
-  },
-  {
-    type: 'result',
-    componentName: ResultSection,
-    resultTitle: 'To find out what works for us, we often need to understand what doesn’t.',
-    resultContent:
-      'Now, we need some information to create the astrological synastry blueprint and give you insights on how to build a happy and lasting relationship with your partner!',
-    resultButtonText: 'Let’s finish this!',
-    resultImage: 'result-2.jpg',
-    fullScreenPage: true,
-  },
-
-  {
-    type: 'userhistory',
-    componentName: UserHistory,
-    slug: 'userhistory',
-    stepData: {
-      sectionsCount: 3,
-      currentSection: 2,
-      stepCount: 11,
-      currentStep: 1,
-      startStep: 1,
+    {
+      type: 'aim',
+      componentName: AimSection,
+      slug: 'aim',
+      stepData: {
+        sectionsCount: 1,
+        currentSection: 1,
+        stepCount: 5,
+        currentStep: 1,
+        startStep: 1,
+      },
     },
-  },
-  {
-    type: 'userTalantsAndCareer',
-    componentName: UserTalantsAndCareer,
-    slug: 'userTalantsAndCareer',
-    stepData: {
-      sectionsCount: 3,
-      currentSection: 2,
-      stepCount: 11,
-      currentStep: 1,
-      startStep: 8,
+    {
+      type: 'result',
+      componentName: ResultSection,
+      resultTitle: 'Great! You just set your first goal!',
+      resultContent: 'Let’s keep going so we can get to know <br> you better',
+      resultButtonText: 'Let’s Start!',
+      resultImage: 'step-1-result.jpg',
+      fullScreenPage: true,
     },
-  },
-])
-const stepsDataCurrentPartner = ref([
-  {
-    type: 'startStep',
-    componentName: StartSection,
-    slug: 'gender',
-  },
-  {
-    type: 'relationship',
-    componentName: RelationshipSection,
-    slug: 'relationship',
-  },
-  {
-    type: 'aim',
-    componentName: AimSection,
-    slug: 'aim',
-    stepData: {
-      sectionsCount: 1,
-      currentSection: 1,
-      stepCount: 5,
-      currentStep: 1,
-      startStep: 1,
+    {
+      type: 'birth',
+      componentName: BirthSection,
+      slug: 'date_of_birth',
+      stepData: {
+        sectionsCount: 1,
+        currentSection: 1,
+        stepCount: 5,
+        currentStep: 1,
+        startStep: 2,
+      },
     },
-  },
-  {
-    type: 'result',
-    componentName: ResultSection,
-    resultTitle: 'Great! You just set your first goal!',
-    resultContent: 'Let’s keep going so we can get to know <br> you better',
-    resultButtonText: 'Let’s Start!',
-    resultImage: 'step-1-result.jpg',
-    fullScreenPage: true,
-  },
-  {
-    type: 'birth',
-    componentName: BirthSection,
-    slug: 'date_of_birth',
-  },
-  {
-    type: 'reviews',
-    componentName: ReviewsSection,
-    slug: 'reviews',
-    fullScreenPage: true,
-  },
-  {
-    type: 'result',
-    componentName: ResultSection,
-    resultTitle: 'To find out what works for us, we often need to understand what doesn’t.',
-    resultContent:
-      'Now, we need some information to create the astrological synastry blueprint and give you insights on how to build a happy and lasting relationship with your partner!',
-    resultButtonText: 'Continue',
-    resultImage: 'result-2.jpg',
-    fullScreenPage: true,
-  },
-  {
-    type: 'basicDataQuestions',
-    componentName: BasicDataQuestions,
-    slug: 'basicDataQuestions',
-    stepData: {
-      sectionsCount: 3,
-      currentSection: 2,
-      stepCount: 6,
-      currentStep: 1,
-      startStep: 1,
+    {
+      type: 'reviews',
+      componentName: ReviewsSection,
+      slug: 'reviews',
+      fullScreenPage: true,
     },
+    {
+      type: 'result',
+      componentName: ResultSection,
+      resultTitle: 'To find out what works for us, we often need to understand what doesn’t.',
+      resultContent:
+        'Now, we need some information to create the astrological synastry blueprint and give you insights on how to build a happy and lasting relationship with your partner!',
+      resultButtonText: 'Let’s finish this!',
+      resultImage: 'result-2.jpg',
+      fullScreenPage: true,
+    },
+  ],
+  secondSection: {
+    single: [
+      {
+        type: 'userhistory',
+        componentName: UserHistory,
+        slug: 'userhistory',
+        stepData: {
+          sectionsCount: 3,
+          currentSection: 2,
+          stepCount: 11,
+          currentStep: 1,
+          startStep: 1,
+        },
+      },
+      {
+        type: 'userTalantsAndCareer',
+        componentName: UserTalantsAndCareer,
+        slug: 'userTalantsAndCareer',
+        stepData: {
+          sectionsCount: 3,
+          currentSection: 2,
+          stepCount: 11,
+          currentStep: 1,
+          startStep: 8,
+        },
+      },
+    ],
+    partner: [
+      {
+        type: 'basicDataQuestions',
+        componentName: BasicDataQuestions,
+        slug: 'basicDataQuestions',
+        stepData: {
+          sectionsCount: 3,
+          currentSection: 2,
+          stepCount: 6,
+          currentStep: 1,
+          startStep: 1,
+        },
+      },
+    ],
   },
-])
+  thirdSection: [],
+}
 
 const currentStepTemplate = computed(() => {
   if (
     appData.value.relationship &&
     ['relationship', 'married', 'complicated', 'other'].includes(appData.value.relationship)
   ) {
-    return stepsDataCurrentPartner.value
+    return [...stepsData.firstSection, ...stepsData.secondSection.partner]
   }
-  return stepsDataSingle.value
+  return [...stepsData.firstSection, ...stepsData.secondSection.single]
 })
 
 watch(
   currentStep,
   (val) => {
-    currentStepData.value = currentStepTemplate.value[val - 1]
-    pageType.value = currentStepTemplate.value[val - 1]?.type
+    currentStepData.value = currentStepTemplate.value[val]
+    pageType.value = currentStepTemplate.value[val]?.type
+    fullScreenPage.value = currentStepTemplate.value[val]?.fullScreenPage
 
-    if (currentStepTemplate.value[val - 1]?.fullScreenPage) {
-      fullScreenPage.value = true
-    } else {
-      fullScreenPage.value = false
-    }
-
-    if (currentStepTemplate.value[val - 1]?.stepData) {
-      stepInfoData.value = currentStepTemplate.value[val - 1].stepData
+    if (currentStepTemplate.value[val]?.stepData) {
+      stepInfoData.value = currentStepTemplate.value[val].stepData
     }
   },
   { immediate: true }
@@ -208,11 +157,9 @@ watch(
       <AppHeader v-show="!fullScreenPage" />
       <Progress v-if="stepInfoData.sectionsCount" v-show="!fullScreenPage" />
       <component
-        v-if="currentStepTemplate[currentStep - 1]?.componentName"
-        :is="currentStepTemplate[currentStep - 1]?.componentName"
+        v-if="currentStepTemplate[currentStep]?.componentName"
+        :is="currentStepTemplate[currentStep]?.componentName"
       />
     </div>
   </div>
 </template>
-
-<style scoped lang="scss"></style>

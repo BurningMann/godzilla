@@ -146,8 +146,6 @@ const sectionStepData = [
 watch(
   currentSectionStep,
   (val) => {
-    console.log(sectionStepData[val]?.slug)
-    console.log(form.value.do_you_know_what_time_your_artner_was_born)
     if (
       sectionStepData[val]?.slug === 'what_time_your_partner_was_born' &&
       !form.value.do_you_know_what_time_your_artner_was_born

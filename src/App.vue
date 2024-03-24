@@ -11,6 +11,10 @@ import ReviewsSection from './components/sections/ReviewsSection.vue'
 import UserHistory from './components/sections/UserHistory.vue'
 import UserTalantsAndCareer from './components/sections/UserTalantsAndCareer.vue'
 import BasicDataQuestions from './components/sections/BasicDataQuestions.vue'
+import PastRelationshipAnalyze from './components/sections/PastRelationshipAnalyze.vue'
+import CurrentRelationshipAnalyze from './components/sections/CurrentRelationshipAnalyze.vue'
+import FutureRelationshipsExpectations from './components/sections/FutureRelationshipsExpectations.vue'
+import MotivationingFuture from './components/sections/MotivationingFuture.vue'
 
 import { useMainStore } from './stores/main'
 import { storeToRefs } from 'pinia'
@@ -123,7 +127,72 @@ const stepsData = {
       },
     ],
   },
-  thirdSection: [],
+  thirdSection: {
+    single: [
+      {
+        type: 'past_relationship_analyze',
+        componentName: PastRelationshipAnalyze,
+        slug: 'past_relationship_analyze',
+        stepData: {
+          sectionsCount: 3,
+          currentSection: 3,
+          stepCount: 14,
+          currentStep: 1,
+          startStep: 1,
+        },
+      },
+      {
+        type: 'future_relationships_expectations',
+        componentName: FutureRelationshipsExpectations,
+        slug: 'future_relationships_expectations',
+        stepData: {
+          sectionsCount: 3,
+          currentSection: 3,
+          stepCount: 14,
+          currentStep: 1,
+          startStep: 9,
+        },
+      },
+      {
+        type: 'motivationing_future',
+        componentName: MotivationingFuture,
+        slug: 'motivationing_future',
+        stepData: {
+          sectionsCount: 3,
+          currentSection: 3,
+          stepCount: 14,
+          currentStep: 1,
+          startStep: 13,
+        },
+      },
+    ],
+    partner: [
+      {
+        type: 'current_relationship_analyze',
+        componentName: CurrentRelationshipAnalyze,
+        slug: 'current_relationship_analyze',
+        stepData: {
+          sectionsCount: 3,
+          currentSection: 3,
+          stepCount: 18,
+          currentStep: 1,
+          startStep: 1,
+        },
+      },
+      {
+        type: 'motivationing_future',
+        componentName: MotivationingFuture,
+        slug: 'motivationing_future',
+        stepData: {
+          sectionsCount: 3,
+          currentSection: 3,
+          stepCount: 18,
+          currentStep: 1,
+          startStep: 17,
+        },
+      },
+    ],
+  },
 }
 
 const currentStepTemplate = computed(() => {
@@ -131,9 +200,9 @@ const currentStepTemplate = computed(() => {
     appData.value.relationship &&
     ['relationship', 'married', 'complicated', 'other'].includes(appData.value.relationship)
   ) {
-    return [...stepsData.firstSection, ...stepsData.secondSection.partner]
+    return [, ...stepsData.firstSection, ...stepsData.secondSection.partner, ...stepsData.thirdSection.partner]
   }
-  return [...stepsData.firstSection, ...stepsData.secondSection.single]
+  return [...stepsData.firstSection, ...stepsData.secondSection.single, ...stepsData.thirdSection.single]
 })
 
 watch(
@@ -155,7 +224,10 @@ watch(
   <div class="page">
     <div class="page-inner container" :class="{ 'white-page': !fullScreenPage }">
       <AppHeader v-show="!fullScreenPage" />
-      <Progress v-if="stepInfoData.sectionsCount" v-show="!fullScreenPage" />
+      <Progress
+        v-if="stepInfoData.sectionsCount && stepInfoData.currentStep <= stepInfoData.stepCount"
+        v-show="!fullScreenPage"
+      />
       <component
         v-if="currentStepTemplate[currentStep]?.componentName"
         :is="currentStepTemplate[currentStep]?.componentName"

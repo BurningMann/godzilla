@@ -30,10 +30,17 @@ const percent = computed(() => {
       v-for="step in stepInfoData.sectionsCount === 1 ? 0 : stepInfoData.sectionsCount"
       :key="step"
       class="progress__point"
-      :class="{ 'is-active': stepInfoData.currentSection - 1 >= step }"
+      :class="{
+        'is-active':
+          stepInfoData.currentSection - 1 >= step ||
+          (stepInfoData.currentSection === step && stepInfoData.currentStep >= stepInfoData.stepCount),
+      }"
     >
       <svg
-        v-if="stepInfoData.currentSection - 1 >= step"
+        v-if="
+          stepInfoData.currentSection - 1 >= step ||
+          (stepInfoData.currentSection === step && stepInfoData.currentStep >= stepInfoData.stepCount)
+        "
         width="8"
         height="6"
         viewBox="0 0 8 6"
@@ -66,6 +73,7 @@ const percent = computed(() => {
     top: 50%;
     left: 0;
     transform: translate(0, -50%);
+    overflow: hidden;
   }
 
   &__line {

@@ -17,6 +17,11 @@ export const useMainStore = defineStore('MainStore', {
       user_history: null,
       user_talants_and_carrer: null,
       basic_data_questions: null,
+
+      past_relationship_analyze: null,
+      current_relationship_analyze: null,
+      future_relationships_expectations: null,
+      motivationing_future: null,
     },
 
     stepInfoData: {

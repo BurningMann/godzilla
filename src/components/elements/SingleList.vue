@@ -1,8 +1,15 @@
 <script setup>
 import { ref } from 'vue'
 import Button from '../../components/elements/Button.vue'
+import { storeToRefs } from 'pinia'
+import { useMainStore } from '../../stores/main'
 
-defineProps({
+const emit = defineEmits(['nextStep'])
+
+const store = useMainStore()
+const { fullScreenPage } = storeToRefs(store)
+
+const props = defineProps({
   list: {
     type: Array,
     default: '',
@@ -14,11 +21,34 @@ defineProps({
 })
 
 const listData = ref(null)
+const result = ref(null)
+
+const nextStep = () => {
+  const data = props.list.find((el) => el.value === listData.value)
+  if (!result.value && data?.result) {
+    result.value = data.result
+    fullScreenPage.value = data.result.fullScreenPage
+  } else {
+    result.value = null
+    emit('nextStep', listData.value)
+  }
+}
 </script>
 
 <template>
   <div>
-    <div class="variants-list">
+    <div v-if="result">
+      <div class="result-page">
+        <div class="result-page__image">
+          <img :src="`./${result?.resultImage}`" class="fit-cover" />
+        </div>
+        <div class="result-page__content">
+          <div class="result-page__title" v-html="result?.resultTitle" />
+          <div class="result-page__text" v-html="result?.resultContent" />
+        </div>
+      </div>
+    </div>
+    <div v-else class="variants-list">
       <label
         v-for="item in list"
         :key="item.value"
@@ -30,8 +60,9 @@ const listData = ref(null)
         <div class="variant-item__text">{{ item.label }}</div>
       </label>
     </div>
+
     <div class="footer-box">
-      <Button :text="buttonText" :disabled="listData === null" @click="$emit('nextStep', listData)" />
+      <Button :text="result?.resultButtonText || buttonText" :disabled="listData === null" @click="nextStep" />
     </div>
   </div>
 </template>

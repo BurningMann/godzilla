@@ -11,7 +11,7 @@ const { currentStep, currentStepData } = storeToRefs(store)
 <template>
   <div class="result-page">
     <div class="result-page__image">
-      <img :src="`./${currentStepData?.resultImage}`" class="fit-cover" />
+      <img :src="`/images/${currentStepData?.resultImage}`" class="fit-cover" />
     </div>
     <div class="result-page__content">
       <div class="result-page__title" v-html="currentStepData?.resultTitle" />

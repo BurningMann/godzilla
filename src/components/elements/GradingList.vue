@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+const emit = defineEmits(['nextStep'])
 
 defineProps({
   list: {
@@ -9,6 +10,12 @@ defineProps({
 })
 
 const listData = ref('')
+
+function setData(item) {
+  setTimeout(() => {
+    emit('nextStep', item)
+  }, 800)
+}
 </script>
 
 <template>
@@ -22,7 +29,7 @@ const listData = ref('')
         @click="
           () => {
             listData = item
-            $emit('nextStep', item)
+            setData()
           }
         "
       >

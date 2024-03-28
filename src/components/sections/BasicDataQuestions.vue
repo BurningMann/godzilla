@@ -173,9 +173,9 @@ watch(
           <div v-if="showSign">
             <div class="result-page">
               <div class="result-page__image">
-                <img :src="'./sign-1.png'" />
+                <img :src="'/images/sign-1.png'" />
                 <div class="result-page__image-plus">+</div>
-                <img :src="'./sign-2.png'" />
+                <img :src="'/images/sign-2.png'" />
               </div>
               <div class="result-page__content">
                 <div class="result-page__title">
@@ -260,7 +260,7 @@ watch(
           </div>
           <div v-else>
             <div class="result-page__image">
-              <img :src="'./dont-worry-result.jpg'" class="fit-cover" />
+              <img :src="'/images/dont-worry-result.jpg'" class="fit-cover" />
             </div>
             <div class="result-page__content">
               <div class="result-page__title">No problem!</div>

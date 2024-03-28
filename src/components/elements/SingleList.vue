@@ -40,7 +40,7 @@ const nextStep = () => {
     <div v-if="result">
       <div class="result-page">
         <div class="result-page__image">
-          <img :src="`./${result?.resultImage}`" class="fit-cover" />
+          <img :src="`/images/${result?.resultImage}`" class="fit-cover" />
         </div>
         <div class="result-page__content">
           <div class="result-page__title" v-html="result?.resultTitle" />

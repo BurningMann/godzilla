@@ -304,7 +304,7 @@ const sectionStepData = [
         value: 'Cautious. I’ve struggled before, but I’m hopeful',
         result: {
           type: 'result',
-          resultImage: 'result-8.jpg',
+          resultImage: 'result-10.jpg',
           resultTitle: `It’s totally normal to feel anxious, Cancer.`,
           resultContent: `But we know you can do this. Let’s keep going so we can create your personal guidance plan based on your astrological profile.`,
           resultButtonText: 'Continue',

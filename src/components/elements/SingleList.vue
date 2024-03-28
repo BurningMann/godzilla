@@ -7,7 +7,7 @@ import { useMainStore } from '../../stores/main'
 const emit = defineEmits(['nextStep'])
 
 const store = useMainStore()
-const { fullScreenPage } = storeToRefs(store)
+const { currentStep, fullScreenPage } = storeToRefs(store)
 
 const props = defineProps({
   list: {
@@ -31,6 +31,11 @@ const nextStep = () => {
   } else {
     result.value = null
     emit('nextStep', listData.value)
+    if (data?.result?.final) {
+      setTimeout(() => {
+        currentStep.value++
+      }, 0)
+    }
   }
 }
 </script>

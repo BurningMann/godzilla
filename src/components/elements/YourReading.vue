@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 
 const store = useMainStore()
-const { currentStep, appData } = storeToRefs(store)
+const { currentStep, appData, signList } = storeToRefs(store)
 
 const emit = defineEmits(['getReading'])
 
@@ -60,17 +60,22 @@ const statsList = {
 <template>
   <div class="your-reading">
     <div v-if="appData.relationshipType === 'partner'" class="your-reading__top">
-      <img src="/images/sign-1.png" alt="" />
+      <div class="your-reading__image"><img :src="`./images/sign/${signList[appData.partner_sign]?.image}`" /></div>
+
       <div class="your-reading__top-plus purple-text-1">+</div>
-      <img src="/images/sign-2.png" alt="" />
+      <div class="your-reading__image">
+        <img :src="`./images/sign/${signList[appData.sign]?.image}`" />
+      </div>
     </div>
     <div v-else class="your-reading__top">
       <img src="/images/sun-large.png" alt="" />
-      <img src="/images/sign-1.png" alt="" />
+      <img :src="`./images/sign/${signList[appData.sign]?.image}`" />
     </div>
     <div class="your-reading__content">
       <div class="your-reading__content-title">
-        <strong v-if="appData.relationshipType === 'partner'">Aries + Taurus Compatibility</strong>
+        <strong v-if="appData.relationshipType === 'partner'">
+          {{ signList[appData.partner_sign]?.name }} + {{ signList[appData.sign]?.name }} Compatibility
+        </strong>
         <strong v-else>Personality</strong>
       </div>
       <div class="your-reading__stats">
@@ -140,7 +145,7 @@ const statsList = {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0 4rem;
+    gap: 0 2.4rem;
     background: rgba(144, 54, 113, 0.2);
     border-radius: 1rem 1rem 0 0;
     padding: 1.5rem 2rem;
@@ -188,7 +193,7 @@ const statsList = {
     bottom: 0;
     left: 0;
     right: 0;
-    top: 52%;
+    height: 44rem;
     background: linear-gradient(180deg, rgba(245, 234, 247, 0.8) 0%, #f5eaf7 100%);
     display: flex;
     flex-direction: column;

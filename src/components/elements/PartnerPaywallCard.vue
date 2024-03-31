@@ -1,15 +1,25 @@
+<script setup>
+import { storeToRefs } from 'pinia'
+
+import { useMainStore } from '../../stores/main'
+const store = useMainStore()
+const { appData, signList } = storeToRefs(store)
+
+const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+</script>
+
 <template>
   <div class="paywall-card">
     <div class="paywall-card__image">
       <div class="paywall-card__image-box">
-        <div>
-          <img src="/images/sign-1.png" alt="" />
+        <div class="paywall-card__image-pic">
+          <img :src="`./images/sign/${signList[appData.sign]?.image}`" />
         </div>
         <div class="paywall-card__image-label">You</div>
       </div>
       <div class="paywall-card__image-box">
-        <div>
-          <img src="/images/sign-2.png" alt="" />
+        <div class="paywall-card__image-pic">
+          <img :src="`./images/sign/${signList[appData.partner_sign]?.image}`" />
         </div>
         <div class="paywall-card__image-label">Partner</div>
       </div>
@@ -19,11 +29,19 @@
       <div class="paywall-card__col">
         <div class="paywall-card__box">
           <div class="paywall-card__box-title">Zodiac Sign</div>
-          <div class="paywall-card__box-value purple-text-1"><strong>Libra</strong></div>
+          <div class="paywall-card__box-value purple-text-1">
+            <strong>{{ signList[appData.sign]?.name }}</strong>
+          </div>
         </div>
         <div class="paywall-card__box">
           <div class="paywall-card__box-title">Date of birth</div>
-          <div class="paywall-card__box-value purple-text-1"><strong>Sep 25 2001</strong></div>
+          <div class="paywall-card__box-value purple-text-1">
+            <strong>
+              {{ monthNames[appData.date_of_birth.month] }}
+              {{ appData.date_of_birth.day }}
+              {{ appData.date_of_birth.year }}
+            </strong>
+          </div>
         </div>
         <div class="paywall-card__box">
           <div class="paywall-card__box-title">Ruling Planet</div>
@@ -37,11 +55,19 @@
       <div class="paywall-card__col">
         <div class="paywall-card__box">
           <div class="paywall-card__box-title">Zodiac Sign</div>
-          <div class="paywall-card__box-value purple-text-1"><strong>Libra</strong></div>
+          <div class="paywall-card__box-value purple-text-1">
+            <strong>{{ signList[appData.partner_sign]?.name }}</strong>
+          </div>
         </div>
         <div class="paywall-card__box">
           <div class="paywall-card__box-title">Date of birth</div>
-          <div class="paywall-card__box-value purple-text-1"><strong>Sep 25 2001</strong></div>
+          <div class="paywall-card__box-value purple-text-1">
+            <strong>
+              {{ monthNames[appData.basic_data_questions.what_is_your_partner_date_of_birth.month] }}
+              {{ appData.basic_data_questions.what_is_your_partner_date_of_birth.day }}
+              {{ appData.basic_data_questions.what_is_your_partner_date_of_birth.year }}
+            </strong>
+          </div>
         </div>
         <div class="paywall-card__box">
           <div class="paywall-card__box-title">Ruling Planet</div>
@@ -84,6 +110,10 @@
     font-size: 1.3rem;
     color: #a3a3a3;
     font-weight: 600;
+  }
+
+  &__image-pic {
+    max-width: 11.5rem;
   }
 
   &__content {

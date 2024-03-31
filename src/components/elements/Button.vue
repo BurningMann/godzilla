@@ -33,6 +33,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  yellow: {
+    type: Boolean,
+    default: false,
+  },
+  black: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const viewButton = computed(() => {
@@ -41,6 +49,8 @@ const viewButton = computed(() => {
   if (props.loading) str = str + ` is-loading`
   if (props.size) str = str + ` is-${props.size}`
   if (props.gray) str = str + ` is-gray`
+  if (props.yellow) str = str + ` is-yellow`
+  if (props.black) str = str + ` is-black`
   return str
 })
 </script>
@@ -63,6 +73,14 @@ const viewButton = computed(() => {
     background: #f0e9f0;
     color: var(--c-black);
   }
+  &.is-yellow {
+    background: #ffc43a;
+    color: var(--c-black);
+  }
+  &.is-black {
+    background: #000;
+    color: var(--c-black);
+  }
 
   &.is-large {
     height: 5.8rem;
@@ -73,6 +91,11 @@ const viewButton = computed(() => {
   &.is-small {
     height: 5.2rem;
     font-size: 1.5rem;
+  }
+
+  &.is-tiny {
+    height: 3.2rem;
+    font-size: 1.3rem;
   }
 
   &.is-disabled {

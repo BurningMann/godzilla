@@ -17,7 +17,7 @@ const setData = (value) => {
     <div class="gender-section">
       <div class="gender-section__title">Select your gender:</div>
       <div class="gender-container">
-        <div class="gender-card" @click="setData('male')">
+        <div class="gender-card" @click="setData('Male')">
           <div class="gender-card__image">
             <img src="/images/male-1.png" />
           </div>
@@ -31,7 +31,7 @@ const setData = (value) => {
             </svg>
           </div>
         </div>
-        <div class="gender-card" @click="setData('female')">
+        <div class="gender-card" @click="setData('Female')">
           <div class="gender-card__image">
             <img src="/images/female-1.png" />
           </div>

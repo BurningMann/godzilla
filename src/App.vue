@@ -16,6 +16,11 @@ import CurrentRelationshipAnalyze from './components/sections/CurrentRelationshi
 import FutureRelationshipsExpectations from './components/sections/FutureRelationshipsExpectations.vue'
 import MotivationingFuture from './components/sections/MotivationingFuture.vue'
 
+import FinalAnlyzSection from './components/sections/FinalAnlyzSection.vue'
+import EmailSection from './components/sections/EmailSection.vue'
+import Paywal from './components/sections/Paywal.vue'
+import Congratulations from './components/sections/Congratulations.vue'
+
 import { useMainStore } from './stores/main'
 import { storeToRefs } from 'pinia'
 
@@ -78,8 +83,7 @@ const stepsData = {
       type: 'result',
       componentName: ResultSection,
       resultTitle: 'To find out what works for us, we often need to understand what doesn’t.',
-      resultContent:
-        'Now, we need some information to create the astrological synastry blueprint and give you insights on how to build a happy and lasting relationship with your partner!',
+      resultContent: `Libra individuals with the ruling Mars require a tailored approach to building a relationship. <br> <br> By analyzing the astrological synastry between you and your partner, we will uncover insights to optimize your relationship and foster a fulfilling connection.`,
       resultButtonText: 'Let’s finish this!',
       resultImage: 'result-2.jpg',
       fullScreenPage: true,
@@ -193,16 +197,47 @@ const stepsData = {
       },
     ],
   },
+  analyzSection: [
+    {
+      type: 'analyz',
+      componentName: FinalAnlyzSection,
+      fullScreenPage: true,
+    },
+    {
+      type: 'email',
+      componentName: EmailSection,
+    },
+    {
+      type: 'paywal',
+      componentName: Paywal,
+      fullScreenPage: true,
+    },
+  ],
+  upsaleSection: [
+    {
+      type: 'congratulations',
+      componentName: Congratulations,
+      fullScreenPage: true,
+    },
+  ],
 }
 
 const currentStepTemplate = computed(() => {
-  if (
-    appData.value.relationship &&
-    ['relationship', 'married', 'complicated', 'other'].includes(appData.value.relationship)
-  ) {
-    return [, ...stepsData.firstSection, ...stepsData.secondSection.partner, ...stepsData.thirdSection.partner]
+  if (appData.value.relationshipType && appData.value.relationshipType === 'partner') {
+    return [
+      ...stepsData.firstSection,
+      ...stepsData.secondSection.partner,
+      ...stepsData.thirdSection.partner,
+      ...stepsData.analyzSection,
+    ]
   }
-  return [...stepsData.firstSection, ...stepsData.secondSection.single, ...stepsData.thirdSection.single]
+  return [
+    ...stepsData.firstSection,
+    ...stepsData.secondSection.single,
+    ...stepsData.thirdSection.single,
+    ...stepsData.analyzSection,
+    ...stepsData.upsaleSection,
+  ]
 })
 
 watch(

@@ -82,16 +82,6 @@ const sectionStepData = {
     },
   ],
 }
-
-const currentStepList = computed(() => {
-  if (
-    appData.value.relationship &&
-    ['relationship', 'married', 'complicated', 'other'].includes(appData.value.relationship)
-  ) {
-    return sectionStepData.partner
-  }
-  return sectionStepData.single
-})
 </script>
 
 <template>
@@ -100,7 +90,7 @@ const currentStepList = computed(() => {
     <div>
       <StepTop :local-title="`What is your <span class='purple-text-1'>aim right now?</span>`" />
       <SingleList
-        :list="currentStepList"
+        :list="sectionStepData[appData.relationshipType]"
         @next-step="
           (data) => {
             setData('aim', data)

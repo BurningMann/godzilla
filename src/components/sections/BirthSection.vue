@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import Button from '../../components/elements/Button.vue'
@@ -10,7 +10,7 @@ import TimePicker from '../../components/elements/TimePicker.vue'
 
 import { useMainStore } from '../../stores/main'
 const store = useMainStore()
-const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData } = storeToRefs(store)
+const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData, signList } = storeToRefs(store)
 
 const showSign = ref(false)
 const currentSectionStep = ref(0)
@@ -90,6 +90,22 @@ watch(
   },
   { immediate: true }
 )
+
+const sign = (day, month) => {
+  if ((month === 3 && day >= 21) || (month === 4 && day <= 20)) return 'aries'
+  else if ((month === 4 && day >= 21) || (month === 5 && day <= 20)) return 'taurus'
+  else if ((month === 5 && day >= 21) || (month === 6 && day <= 21)) return 'gemini'
+  else if ((month === 6 && day >= 22) || (month === 7 && day <= 22)) return 'cancer'
+  else if ((month === 7 && day >= 23) || (month === 8 && day <= 23)) return 'leo'
+  else if ((month === 8 && day >= 24) || (month === 9 && day <= 23)) return 'virgo'
+  else if ((month === 9 && day >= 24) || (month === 10 && day <= 23)) return 'libra'
+  else if ((month === 10 && day >= 24) || (month === 11 && day <= 22)) return 'scorpio'
+  else if ((month === 11 && day >= 23) || (month === 12 && day <= 22)) return 'sagittarius'
+  else if ((month === 12 && day >= 22) || (month === 1 && day <= 20)) return 'capricorn'
+  else if ((month === 1 && day >= 21) || (month === 2 && day <= 18)) return 'aquarius'
+  else if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return 'pisces'
+  else return ''
+}
 </script>
 
 <template>
@@ -112,6 +128,7 @@ watch(
             @click="
               () => {
                 appData.date_of_birth = dateOfBirth
+                appData.sign = sign(dateOfBirth.day, dateOfBirth.month)
                 nextStep()
               }
             "
@@ -120,15 +137,19 @@ watch(
       </div>
       <div v-else-if="currentSectionStep === 0 && showSign">
         <div class="result-page__image">
-          <img :src="'/images/sign-1.png'" />
+          <img :src="`./images/sign/${signList[sign(dateOfBirth.day, dateOfBirth.month)]?.image}`" />
         </div>
         <div class="result-page__content">
-          <div class="result-page__title"><span class="purple-text-1">Libra</span> females</div>
+          <div class="result-page__title">
+            <span class="purple-text-1">{{ signList[sign(dateOfBirth.day, dateOfBirth.month)]?.name }}</span>
+            {{ appData.gender }}
+          </div>
           <div class="result-page__text">
-            Sparkling with wit, the Gemini female charms with her versatility, constantly adapting to change.
+            Your birth date, place, and time align the stars uniquely for you, making you much more than just your
+            Zodiac sign.
             <br /><br />
-            Let’s keep going so we can get to know <br />
-            you better
+            A key element in your Natal Chart is your Ascendant (Sun sign). Let's delve deeper into what this means for
+            you!
           </div>
         </div>
         <div class="footer-box"><Button :text="'Continue'" @click="nextStep" /></div>
@@ -194,7 +215,7 @@ watch(
         </div>
         <div v-if="!appData.time_of_birth">
           <div class="result-page__image">
-            <img :src="'/images/dont-worry-result.jpg'" class="fit-cover" />
+            <img :src="'./images/dont-worry-result.jpg'" class="fit-cover" />
           </div>
           <div class="result-page__content">
             <div class="result-page__title">Don't worry!</div>

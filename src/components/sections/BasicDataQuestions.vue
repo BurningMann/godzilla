@@ -12,7 +12,7 @@ import BackArrow from '../../components/elements/BackArrow.vue'
 import TimePicker from '../../components/elements/TimePicker.vue'
 
 const store = useMainStore()
-const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData } = storeToRefs(store)
+const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData, signList } = storeToRefs(store)
 
 const currentSectionStep = ref(0)
 
@@ -31,16 +31,6 @@ const prevStep = () => {
   } else {
     currentStep.value--
   }
-}
-
-const nextStep = () => {
-  appData.value.basic_data_questions = { ...form.value }
-  currentSectionStep.value++
-}
-
-function setData(slug, data) {
-  form.value[slug] = data
-  nextStep()
 }
 
 const dateOfBirth = ref('')
@@ -160,6 +150,33 @@ watch(
   },
   { immediate: true }
 )
+
+const sign = (day, month) => {
+  if ((month === 3 && day >= 21) || (month === 4 && day <= 20)) return 'aries'
+  else if ((month === 4 && day >= 21) || (month === 5 && day <= 20)) return 'taurus'
+  else if ((month === 5 && day >= 21) || (month === 6 && day <= 21)) return 'gemini'
+  else if ((month === 6 && day >= 22) || (month === 7 && day <= 22)) return 'cancer'
+  else if ((month === 7 && day >= 23) || (month === 8 && day <= 23)) return 'leo'
+  else if ((month === 8 && day >= 24) || (month === 9 && day <= 23)) return 'virgo'
+  else if ((month === 9 && day >= 24) || (month === 10 && day <= 23)) return 'libra'
+  else if ((month === 10 && day >= 24) || (month === 11 && day <= 22)) return 'scorpio'
+  else if ((month === 11 && day >= 23) || (month === 12 && day <= 22)) return 'sagittarius'
+  else if ((month === 12 && day >= 22) || (month === 1 && day <= 20)) return 'capricorn'
+  else if ((month === 1 && day >= 21) || (month === 2 && day <= 18)) return 'aquarius'
+  else if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return 'pisces'
+  else return ''
+}
+
+const nextStep = () => {
+  appData.value.basic_data_questions = { ...form.value }
+  appData.value.partner_sign = sign(dateOfBirth.value.day, dateOfBirth.value.month)
+  currentSectionStep.value++
+}
+
+function setData(slug, data) {
+  form.value[slug] = data
+  nextStep()
+}
 </script>
 
 <template>
@@ -173,19 +190,23 @@ watch(
           <div v-if="showSign">
             <div class="result-page">
               <div class="result-page__image">
-                <img :src="'/images/sign-1.png'" />
+                <img :src="`./images/sign/${signList[appData.sign]?.image}`" />
                 <div class="result-page__image-plus">+</div>
-                <img :src="'/images/sign-2.png'" />
+                <img :src="`./images/sign/${signList[sign(dateOfBirth.day, dateOfBirth.month)]?.image}`" />
               </div>
               <div class="result-page__content">
                 <div class="result-page__title">
-                  <span class="purple-text-1">Gemini</span> Female + <span class="purple-text-1">Taurus</span> Male
+                  <span class="purple-text-1">{{ signList[appData.sign]?.name }}</span> {{ appData.gender }} +
+                  <span class="purple-text-1">{{ signList[sign(dateOfBirth.day, dateOfBirth.month)]?.name }}</span>
+                  {{ form.what_is_your_partner_gender }}
                 </div>
                 <div class="result-page__text">
-                  The celestial energies uniquely intertwine when a Gemini woman interacts with a Taurus man.
+                  The celestial dance between a Gemini woman and a Taurus man is intricate, revealing layers beneath the
+                  surface much like an iceberg. While there's promise, there are also pitfalls hidden in the depths of
+                  this relationship.
                   <br /><br />
-                  How well do you match? <br />
-                  Let's delve deeper and discover.
+                  How compatible are you truly? <br />
+                  Let's discover!
                 </div>
               </div>
               <div class="footer-box">

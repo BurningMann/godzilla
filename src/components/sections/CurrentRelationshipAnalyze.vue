@@ -117,8 +117,8 @@ const sectionStepData = [
         result: {
           type: 'result',
           resultImage: 'result-7.jpg',
-          resultTitle: `You’re not alone. <br> Based on our data 74% of people with their sun in Cancer find it difficult to communicate with their Taurus partner.`,
-          resultContent: `But we can help you to improve this.`,
+          resultTitle: `Great to hear! <br> Based on our data only 26% of people with their sun in Cancer find it easy to communicate with their Taurus partner!`,
+          resultContent: `But there is always a room for improvement.`,
           resultButtonText: 'Continue',
           fullScreenPage: true,
         },
@@ -129,8 +129,8 @@ const sectionStepData = [
         result: {
           type: 'result',
           resultImage: 'result-7.jpg',
-          resultTitle: `Great to hear! <br> Based on our data only 26% of people with their sun in Cancer find it easy to communicate with their Taurus partner!`,
-          resultContent: `But there is always a room for improvement.`,
+          resultTitle: `You’re not alone. <br> Based on our data 74% of people with their sun in Cancer find it difficult to communicate with their Taurus partner.`,
+          resultContent: `But we can help you to improve this.`,
           resultButtonText: 'Continue',
           fullScreenPage: true,
         },

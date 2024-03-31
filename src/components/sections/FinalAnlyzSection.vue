@@ -1,19 +1,23 @@
 <script setup>
-import LoadingPoints from '../elements/LoadingPoints.vue'
-import { ref, onMounted, onUnmounted } from 'vue'
+import LoadingCircle from '../elements/LoadingCircle.vue'
+import Button from '../elements/Button.vue'
+import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 const store = useMainStore()
 const { currentStep, appData } = storeToRefs(store)
 
-const currentPosition = ref(0)
-const stepsText = ['Connecting to database', 'Calculating your personal ascendant', 'Preparing  your astrology reading']
+const stepsText = [
+  'Analyzing your profile ...',
+  'Creating your astrological blueprint ...',
+  'Cross-cheking with similar health profiles ...',
+]
 
 const reviewsData = {
   Female: [
     {
-      name: 'Sarah J.',
-      text: `"I followed the advice from my reading for a week, and it really did improve my life. <br> Highly recommend!"`,
+      name: 'Sabrina',
+      text: `“It’s scary how accurate this reading is. I can’t believe it. I never write reviews but I really needed to with this one. I love it, it helped me so much to understand myself and my partner.”`,
       stars: 5,
     },
   ],
@@ -25,22 +29,71 @@ const reviewsData = {
     },
   ],
 }
-let interval = null
-onMounted(() => {
+
+const progressData = ref([
+  {
+    name: 'Analyzing your goals',
+    percent: 0,
+    steps: 2,
+    stepTime: 2000,
+  },
+  {
+    name: 'Personality traits',
+    percent: 0,
+    steps: 3,
+    stepTime: 1500,
+  },
+  {
+    name: 'Relationship pattern',
+    percent: 0,
+    steps: 3,
+    stepTime: 200,
+  },
+])
+
+const currentProgressStep = ref(0)
+const showQuestion = ref(false)
+const pause = ref(false)
+
+function fillProgress() {
+  let interval = null
+  let step = 0
+  const sectionPercent = 100 / progressData.value[currentProgressStep.value].steps
+
   interval = setInterval(() => {
-    currentPosition.value++
-    if (currentPosition.value === 3) {
-      clearInterval(interval)
-      currentStep.value++
+    if (!pause.value) {
+      step++
+      progressData.value[currentProgressStep.value].percent = sectionPercent * step
+
+      if (step === 1 && progressData.value[currentProgressStep.value].percent === 50) {
+        pause.value = true
+        showQuestion.value = true
+      }
+
+      if (step >= progressData.value[currentProgressStep.value].steps) {
+        clearInterval(interval)
+        if (currentProgressStep.value <= progressData.value.length - 2) {
+          currentProgressStep.value++
+          fillProgress()
+        } else {
+          setTimeout(() => {
+            currentStep.value++
+          }, 2000)
+        }
+      }
     }
-  }, 1000)
+  }, progressData.value[currentProgressStep.value].stepTime / progressData.value[currentProgressStep.value].steps)
+}
+
+onMounted(() => {
+  fillProgress()
 })
 </script>
 
 <template>
-  <div class="reviews-page">
-    <div class="reviews-page__top">
-      <div class="reviews-page__top-icon">
+  <div class="analyz-page">
+    <div class="analyz-page__top">
+      <div class="analyz-page__top-icon">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fill-rule="evenodd"
@@ -56,18 +109,50 @@ onMounted(() => {
           </defs>
         </svg>
       </div>
-      <div class="reviews-page__steps">
-        <div
-          v-for="(step, index) in stepsText"
-          class="reviews-page__step"
-          :class="{ 'is-active': index <= currentPosition, 'is-higlited': index === currentPosition }"
-        >
-          {{ step }}
+      <div class="analyz-page__steps">
+        <div class="analyz-page__step">
+          {{ stepsText[currentProgressStep] }}
         </div>
       </div>
-      <LoadingPoints />
     </div>
+    <div class="progress-wrapper">
+      <div
+        v-for="(item, index) in progressData"
+        :key="index"
+        class="progress-box"
+        :class="{ 'is-higlited': index <= currentProgressStep }"
+      >
+        <div class="progress-box__top">
+          <div class="">{{ item.name }}</div>
+          <div class="progress-box__precent">
+            <LoadingCircle v-if="index === currentProgressStep && item.percent < 100" />
+            <span v-if="item.percent < 100">{{ item.percent.toFixed() }}%</span>
+            <span v-else
+              ><svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M7.08916 12.9342C7.01195 13.0118 6.92015 13.0734 6.81904 13.1155C6.71793 13.1575 6.6095 13.1792 6.49999 13.1792C6.39049 13.1792 6.28206 13.1575 6.18095 13.1155C6.07984 13.0734 5.98804 13.0118 5.91083 12.9342L1.20583 8.22833C0.971488 7.99392 0.839844 7.67603 0.839844 7.34458C0.839844 7.01312 0.971488 6.69524 1.20583 6.46083L1.79499 5.87166C2.0294 5.63732 2.34729 5.50568 2.67874 5.50568C3.0102 5.50568 3.32808 5.63732 3.56249 5.87166L6.49999 8.80916L14.4375 0.871659C14.6719 0.63732 14.9898 0.505676 15.3212 0.505676C15.6527 0.505676 15.9706 0.63732 16.205 0.871659L16.7942 1.46083C17.0285 1.69524 17.1601 2.01312 17.1601 2.34458C17.1601 2.67603 17.0285 2.99392 16.7942 3.22833L7.08916 12.9342Z"
+                  fill="#C4426E"
+                /></svg
+            ></span>
+          </div>
+        </div>
+        <div>
+          <div class="progress">
+            <div class="progress__line-container">
+              <div
+                class="progress__line"
+                :style="{
+                  width: `${item.percent}%`,
+                }"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="footer-box">
+      <div class="reviews-container__title">Trusted by over 141,562 clients</div>
       <div class="reviews-container">
         <div v-for="review in reviewsData[appData.gender]" class="review-card is-active">
           <div class="review-card__name">{{ review.name }}</div>
@@ -83,16 +168,49 @@ onMounted(() => {
         </div>
       </div>
     </div>
+
+    <div class="allert-bg" :class="{ 'is-active': showQuestion }">
+      <div class="allert">
+        <div class="allert__title">Do you enjoy spending time alone?</div>
+        <div class="allert__buttons">
+          <Button
+            :text="'Yes'"
+            :gray="true"
+            @click="
+              () => {
+                appData.do_you_enjoy_spending_time_alone = 'Yes'
+                showQuestion = false
+                pause = false
+              }
+            "
+          />
+          <Button
+            :text="'No'"
+            @click="
+              () => {
+                appData.do_you_enjoy_spending_time_alone = 'No'
+                showQuestion = false
+                pause = false
+              }
+            "
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.reviews-page {
+.analyz-page {
   background: linear-gradient(180deg, #1e0939 0%, #743072 100%);
   min-height: 100svh;
   padding-top: 7rem;
   padding-left: var(--container-padding);
   padding-right: var(--container-padding);
+
+  &__top {
+    margin-bottom: 2.5rem;
+  }
 
   &__top-icon {
     display: flex;
@@ -104,6 +222,7 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    height: 5.2rem;
   }
 
   &__step {
@@ -111,18 +230,62 @@ onMounted(() => {
     font-size: 2rem;
     line-height: 130%;
     text-align: center;
-    color: rgba(255, 255, 255, 0.5);
-    height: 0px;
+    color: rgba(255, 255, 255, 1);
     overflow: hidden;
     transition: 0.3s;
+  }
+}
 
-    &.is-active {
-      height: max-content;
-    }
+.progress-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+}
 
-    &.is-higlited {
-      color: rgba(255, 255, 255, 1);
-    }
+.progress-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  opacity: 0.5;
+  transition: 0.3s;
+
+  &.is-higlited {
+    opacity: 1;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+  }
+
+  &__precent {
+    display: flex;
+    gap: 0.6rem;
+  }
+}
+
+.progress {
+  width: 100%;
+  position: relative;
+
+  &__line-container {
+    width: 100%;
+    background: #4c2e61;
+    border-radius: 30px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    overflow: hidden;
+  }
+
+  &__line {
+    width: 100%;
+    height: 0.6rem;
+    background: linear-gradient(90deg, #642b72 0%, #c5426e 100%);
+    border-radius: 30px;
+    transition: 0.3s ease-in-out;
   }
 }
 </style>

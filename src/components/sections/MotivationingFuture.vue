@@ -322,16 +322,8 @@ const sectionStepData = {
 watch(
   currentSectionStep,
   (val) => {
-    let currentPath = 'single'
-    if (
-      appData.value.relationship &&
-      ['relationship', 'married', 'complicated', 'other'].includes(appData.value.relationship)
-    ) {
-      currentPath = 'partner'
-    }
-
-    fullScreenPage.value = sectionStepData[currentPath][val]?.fullScreenPage
-    currentStepData.value = sectionStepData[currentPath][val]
+    fullScreenPage.value = sectionStepData[appData.value.relationshipType][val]?.fullScreenPage
+    currentStepData.value = sectionStepData[appData.value.relationshipType][val]
     stepInfoData.value.currentStep = currentSectionStep.value + stepInfoData.value.startStep
   },
   { immediate: true }

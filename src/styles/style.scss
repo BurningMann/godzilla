@@ -38,6 +38,10 @@ svg {
 }
 
 strong {
+  font-weight: 700;
+}
+
+.semibold {
   font-weight: 600;
 }
 
@@ -92,6 +96,28 @@ video {
 
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 3px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: var(--c-title);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-color: transparent var(--c-title);
+    scrollbar-width: thin;
   }
 }
 
@@ -381,4 +407,127 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.reviews-container {
+  position: relative;
+
+  &__title {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+  }
+}
+
+.review-card {
+  background: rgba(33, 10, 59, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  border-radius: 1.5rem;
+  width: 35rem;
+  min-height: 25rem;
+  margin: 0 auto;
+  transform: translate(0, 2rem);
+  opacity: 0;
+  transition: 1s;
+
+  &.is-active {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  &__name {
+    margin-bottom: 0.7rem;
+  }
+
+  &__stars {
+    margin-bottom: 1.8rem;
+  }
+
+  &__text {
+    font-size: 1.5rem;
+    line-height: 140%;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__time {
+    font-size: 1.5rem;
+    line-height: 140%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.allert-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.allert {
+  width: calc(100% - 4rem);
+  background: #fff8ff;
+  border-radius: 15px;
+  padding: 3rem 2rem;
+
+  &__title {
+    color: var(--c-black);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+.input {
+  height: 5rem;
+  background: rgba(125, 49, 114, 0.05);
+  border: 1px solid rgba(119, 51, 149, 0.2);
+  border-radius: 10px;
+  width: 100%;
+  padding: 0 1.6rem;
+  color: var(--c-black);
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.copy {
+  opacity: 0.7;
+  font-size: 1.1rem;
+  color: var(--c-black);
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.old-price {
+  opacity: 0.5;
+  font-size: 1.3rem;
+  line-height: 140%;
+  text-decoration: line-through;
+  color: var(--c-black);
 }

@@ -9,13 +9,20 @@ import { useMainStore } from '../../stores/main'
 const store = useMainStore()
 const { currentStep, appData } = storeToRefs(store)
 
-const setData = (slug, data) => {
-  appData.value[slug] = data
+const setData = (data) => {
+  appData.value.relationship = data
+
+  if (['relationship', 'married', 'complicated', 'other'].includes(data)) {
+    appData.value.relationshipType = 'partner'
+  } else {
+    appData.value.relationshipType = 'single'
+  }
+
   currentStep.value++
 }
 
 const sectionStepData = {
-  male: [
+  Male: [
     {
       icon: '👱‍♂️',
       label: 'Single',
@@ -47,7 +54,7 @@ const sectionStepData = {
       value: 'other',
     },
   ],
-  female: [
+  Female: [
     {
       icon: '👩‍🦰️',
       label: 'Single',
@@ -92,7 +99,7 @@ const sectionStepData = {
         :button-text="'Continue'"
         @next-step="
           (data) => {
-            setData('relationship', data)
+            setData(data)
           }
         "
       />

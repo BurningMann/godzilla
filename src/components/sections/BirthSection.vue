@@ -137,7 +137,9 @@ const sign = (day, month) => {
       </div>
       <div v-else-if="currentSectionStep === 0 && showSign">
         <div class="result-page__image">
-          <img :src="`./images/sign/${signList[sign(dateOfBirth.day, dateOfBirth.month)]?.image}`" />
+          <div class="image">
+            <img :src="`./images/sign/${signList[sign(dateOfBirth.day, dateOfBirth.month)]?.image}`" />
+          </div>
         </div>
         <div class="result-page__content">
           <div class="result-page__title">
@@ -268,3 +270,9 @@ const sign = (day, month) => {
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.image {
+  max-width: 15rem;
+}
+</style>

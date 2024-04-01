@@ -11,6 +11,10 @@ const { currentStep, appData } = storeToRefs(store)
 
 const emit = defineEmits(['close'])
 
+const props = defineProps({
+  timer: Object,
+})
+
 const email = ref('')
 const editEmail = ref(false)
 
@@ -76,11 +80,11 @@ onMounted(() => {
     <div class="pay-dialog__personal">
       Personal offer reserved
       <div class="pay-dialog__timer">
-        <div class="pay-dialog__timer-item">0</div>
-        <div class="pay-dialog__timer-item">7</div>
+        <div class="pay-dialog__timer-item">{{ timer.min[0] }}</div>
+        <div class="pay-dialog__timer-item">{{ timer.min[1] }}</div>
         <div>:</div>
-        <div class="pay-dialog__timer-item">5</div>
-        <div class="pay-dialog__timer-item">2</div>
+        <div class="pay-dialog__timer-item">{{ timer.sec[0] }}</div>
+        <div class="pay-dialog__timer-item">{{ timer.sec[1] }}</div>
       </div>
     </div>
     <div>

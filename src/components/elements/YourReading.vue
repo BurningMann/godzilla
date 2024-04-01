@@ -58,7 +58,13 @@ const statsList = {
 }
 
 function getPartnerText(sign, partner_sign) {
-  const result = CompatibilityReading.find((el) => el.firstsign === sign && el.secondsign === partner_sign)
+  console.log(sign, partner_sign)
+  const result = CompatibilityReading.find(
+    (el) =>
+      (el.firstsign === sign || el.secondsign === sign) &&
+      (el.secondsign === partner_sign || el.secondsign === partner_sign)
+  )
+  console.log(result)
   return result?.text
 }
 </script>

@@ -35,19 +35,19 @@ const progressData = ref([
     name: 'Analyzing your goals',
     percent: 0,
     steps: 2,
-    stepTime: 2000,
+    stepTime: 3000,
   },
   {
     name: 'Personality traits',
     percent: 0,
     steps: 3,
-    stepTime: 1500,
+    stepTime: 3000,
   },
   {
     name: 'Relationship pattern',
     percent: 0,
-    steps: 3,
-    stepTime: 200,
+    steps: 4,
+    stepTime: 3000,
   },
 ])
 
@@ -64,8 +64,11 @@ function fillProgress() {
     if (!pause.value) {
       step++
       progressData.value[currentProgressStep.value].percent = sectionPercent * step
-
-      if (step === 1 && progressData.value[currentProgressStep.value].percent === 50) {
+      if (
+        currentProgressStep.value === 1 &&
+        step === 1 &&
+        progressData.value[currentProgressStep.value].percent >= 30
+      ) {
         pause.value = true
         showQuestion.value = true
       }

@@ -1,7 +1,7 @@
 <script setup>
 import Button from '../elements/Button.vue'
 import StepTop from '../elements/StepTop.vue'
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 import { ElMessage } from 'element-plus'
@@ -10,6 +10,19 @@ const store = useMainStore()
 const { currentStep, appData } = storeToRefs(store)
 
 const mail = ref('')
+
+const emailSuggestions = ['gmail.com', 'yahoo.com', 'hotmail.com', 'hotmail.co.uk', 'icloud.com', 'outlook.com']
+const emailSuggestionsList = ref([])
+
+watch(mail, (val) => {
+  if (emailSuggestions.filter((el) => el === val.split('@')[1])?.length === 1) {
+    emailSuggestionsList.value = []
+  } else if (val.split('@')[1] || val.split('@')[1] === '') {
+    emailSuggestionsList.value = emailSuggestions.filter((el) => el.includes(`${val.split('@')[1]}`))
+  } else {
+    emailSuggestionsList.value = []
+  }
+})
 
 function next() {
   const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -44,11 +57,9 @@ const pricesList = [
     value: 13.67,
   },
 ]
-const currentPrice = ref(1)
+const currentPrice = ref(13.67)
 
 const currentSectionStep = ref(1)
-
-onMounted(() => {})
 </script>
 
 <template>
@@ -64,14 +75,20 @@ onMounted(() => {})
           <strong>Share* your email</strong> so you <strong> don’t lose</strong> <br />
           provided information
         </div>
-        <div>
+        <div class="email-wrapper">
           <input v-model="mail" type="text" class="input" />
+          {{ emailSuggestionsList.length }}
+          <ul v-show="emailSuggestionsList.length" class="email-suggestions">
+            <li v-for="item in emailSuggestionsList" :key="item" @click="mail = `${mail.split('@')[0]}@${item}`">
+              {{ `${mail.split('@')[0]}@${item}` }}
+            </li>
+          </ul>
         </div>
         <div class="email-page__allert">
           *Natal Chart does not share any personal information. We’ll email you a copy of your program for convenient
           access.
         </div>
-        <Button :text="'Continue'" @click="next" />
+        <Button :text="'Continue'" :disabled="!mail" @click="next" />
       </div>
 
       <div class="footer-box">
@@ -148,6 +165,7 @@ onMounted(() => {})
           @click="
             () => {
               appData.email = mail
+              appData.currentPrice = currentPrice
               currentStep++
             }
           "
@@ -159,6 +177,29 @@ onMounted(() => {})
 </template>
 
 <style scoped lang="scss">
+.email-wrapper {
+  position: relative;
+}
+
+.email-suggestions {
+  position: absolute;
+  top: calc(100% + 5px);
+  width: 100%;
+  border: 1px solid #773395;
+  border-radius: 1rem;
+  background: #f5eaf7;
+  padding: 2rem 1.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 5;
+  color: var(--c-black);
+
+  li {
+    cursor: pointer;
+  }
+}
+
 .email-page {
   &__subtitle {
     color: var(--c-black);

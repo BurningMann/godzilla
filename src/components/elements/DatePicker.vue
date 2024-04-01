@@ -430,7 +430,7 @@ onMounted(() => {
     let currentYear = new Date().getFullYear()
     let years = []
 
-    for (let i = currentYear - 100; i < currentYear + 1; i++) {
+    for (let i = currentYear - 64; i < currentYear + 1; i++) {
       years.push({
         value: i,
         text: i,

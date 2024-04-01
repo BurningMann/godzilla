@@ -44,7 +44,40 @@ const getList = [
 
 const showPayment = ref(false)
 
-onMounted(() => {})
+const count = 8
+const started = ref(false)
+const timerData = ref({
+  min: 0,
+  sec: 0,
+})
+
+function startTimer() {
+  if (started.value) {
+    return
+  }
+  var start_time = new Date()
+  var stop_time = start_time.setMinutes(start_time.getMinutes() + count)
+
+  var countdown = setInterval(function () {
+    var now = new Date().getTime()
+    var remain = stop_time - now
+    var min = Math.floor((remain % (1000 * 60 * 60)) / (1000 * 60))
+    var sec = Math.floor((remain % (1000 * 60)) / 1000)
+    min = min < 10 ? '0' + min : `${min}`
+    sec = sec < 10 ? '0' + sec : `${sec}`
+    timerData.value.min = min
+    timerData.value.sec = sec
+
+    if (remain < 0) {
+      clearInterval(countdown)
+    }
+  }, 1000)
+  started.value = true
+}
+
+onMounted(() => {
+  startTimer()
+})
 </script>
 
 <template>
@@ -52,8 +85,10 @@ onMounted(() => {})
     <section class="paywal-page__section">
       <div class="paywal-page__top">
         <div>-51% discount reserved for:</div>
-        <div><strong>7:59</strong></div>
-        <Button :text="'Continue'" size="tiny" />
+        <div>
+          <strong>{{ timerData.min }}:{{ timerData.sec }}</strong>
+        </div>
+        <Button :text="'Continue'" size="tiny" @click="showPayment = true" />
       </div>
       <div class="paywal-page__card">
         <PartnerPaywallCard v-if="appData.relationshipType === 'partner'" />
@@ -246,7 +281,7 @@ onMounted(() => {})
       </div>
     </section>
 
-    <PayDialog v-show="showPayment" @close="showPayment = false" />
+    <PayDialog v-show="showPayment" @close="showPayment = false" :timer="timerData" />
   </div>
 </template>
 

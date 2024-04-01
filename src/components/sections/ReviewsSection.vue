@@ -33,7 +33,7 @@ onMounted(() => {
       clearInterval(interval)
       currentStep.value++
     }
-  }, 1000)
+  }, 2500)
 })
 </script>
 

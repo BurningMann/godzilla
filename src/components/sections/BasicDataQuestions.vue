@@ -188,11 +188,14 @@ function setData(slug, data) {
       <div>
         <div v-if="sectionStepData[currentSectionStep]?.slug === 'what_is_your_partner_date_of_birth'">
           <div v-if="showSign">
-            <div class="result-page">
+            <div class="">
               <div class="result-page__image">
-                <img :src="`./images/sign/${signList[appData.sign]?.image}`" />
+                <div class="image"><img :src="`./images/sign/${signList[appData.sign]?.image}`" /></div>
+
                 <div class="result-page__image-plus">+</div>
-                <img :src="`./images/sign/${signList[sign(dateOfBirth.day, dateOfBirth.month)]?.image}`" />
+                <div class="image">
+                  <img :src="`./images/sign/${signList[sign(dateOfBirth.day, dateOfBirth.month)]?.image}`" />
+                </div>
               </div>
               <div class="result-page__content">
                 <div class="result-page__title">
@@ -201,10 +204,12 @@ function setData(slug, data) {
                   {{ form.what_is_your_partner_gender }}
                 </div>
                 <div class="result-page__text">
-                  The celestial dance between a Gemini woman and a Taurus man is intricate, revealing layers beneath the
-                  surface much like an iceberg. While there's promise, there are also pitfalls hidden in the depths of
-                  this relationship.
-                  <br /><br />
+                  The celestial dance between a {{ signList[appData.sign]?.name }}
+                  {{ appData.gender === 'Male' ? 'man' : 'woman' }} and a
+                  {{ signList[sign(dateOfBirth.day, dateOfBirth.month)]?.name }}
+                  {{ form.what_is_your_partner_gender === 'Male' ? 'man' : 'woman' }} is intricate, revealing layers
+                  beneath the surface much like an iceberg. While there's promise, there are also pitfalls hidden in the
+                  depths of this relationship. <br /><br />
                   How compatible are you truly? <br />
                   Let's discover!
                 </div>
@@ -281,7 +286,7 @@ function setData(slug, data) {
           </div>
           <div v-else>
             <div class="result-page__image">
-              <img :src="'/images/dont-worry-result.jpg'" class="fit-cover" />
+              <img :src="'./images/dont-worry-result.jpg'" class="fit-cover" />
             </div>
             <div class="result-page__content">
               <div class="result-page__title">No problem!</div>
@@ -335,3 +340,9 @@ function setData(slug, data) {
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.image {
+  max-width: 15rem;
+}
+</style>

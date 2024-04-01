@@ -29,6 +29,7 @@ export const useMainStore = defineStore('MainStore', {
       motivationing_future: null,
 
       email: '',
+      currentPrice: '',
     },
 
     stepInfoData: {

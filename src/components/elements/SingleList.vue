@@ -61,7 +61,11 @@ const nextStep = () => {
         :class="{ 'is-active': listData === item.value }"
       >
         <input v-model="listData" type="radio" :value="item.value" />
-        <div v-if="item.icon" class="variant-item__icon">{{ item.icon }}</div>
+        <div v-if="item.iconType === 'image' && item.icon" class="variant-item__icon">
+          <img :src="`./images/${item.icon}`" />
+        </div>
+        <div v-else-if="item.icon" class="variant-item__icon">{{ item.icon }}</div>
+
         <div class="variant-item__text">{{ item.label }}</div>
       </label>
     </div>

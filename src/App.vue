@@ -229,6 +229,7 @@ const currentStepTemplate = computed(() => {
       ...stepsData.secondSection.partner,
       ...stepsData.thirdSection.partner,
       ...stepsData.analyzSection,
+      ...stepsData.upsaleSection,
     ]
   }
   return [

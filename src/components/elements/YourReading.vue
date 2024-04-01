@@ -1,5 +1,6 @@
 <script setup>
 import Button from '../elements/Button.vue'
+import CompatibilityReading from '../../json/compatibility-reading.json'
 
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
@@ -55,6 +56,11 @@ const statsList = {
     },
   ],
 }
+
+function getPartnerText(sign, partner_sign) {
+  const result = CompatibilityReading.find((el) => el.firstsign === sign && el.secondsign === partner_sign)
+  return result?.text
+}
 </script>
 
 <template>
@@ -99,19 +105,13 @@ const statsList = {
           </div>
         </div>
       </div>
-      <div v-if="appData.relationshipType === 'partner'" class="your-reading__description">
-        <p>
-          When Aries and Taurus come together for love or any kind of relationship, it’s dynamic but also grounding.
-          Aries loves to be first, while Taurus takes their sweet time. Let Taurus be the rock that holds down the fort,
-          and Aries be the roll that keeps the two of you from getting stuck in a rut. Everlasting love is a possibility
-          here, if you can pace your way to the altar. The Aries-Taurus combo begins with a bang: gushing compliments,
-          long-stemmed roses, electrifying conversations over a choice bottle of Cabernet. During the courtship phase,
-          Taurus is happy to bask in Aries’ fiery glow. With the Bull’s rapt attention, Aries puts on a show-stopping
-          performance that rivals Celine Dion in Vegas. Viva la difference! Homebody
-        </p>
-      </div>
+      <div
+        v-if="appData.relationshipType === 'partner'"
+        class="your-reading__description"
+        v-html="getPartnerText(appData.sign, appData.partner_sign)"
+      />
       <div v-else class="your-reading__description">
-        <div v-html="signList[appData.sign]?.personality[appData.gender]"></div>
+        <div v-html="signList[appData.sign]?.personality[appData.gender]" />
       </div>
     </div>
 
@@ -174,6 +174,11 @@ const statsList = {
   &__description {
     color: var(--c-black);
     font-size: 1.4rem;
+    white-space: pre-line;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 19;
+    -webkit-box-orient: vertical;
   }
 
   &__overlay {

@@ -29,7 +29,9 @@ const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
         </div>
         <div class="paywall-card__box">
           <div class="paywall-card__box-title">Ruling Planet</div>
-          <div class="paywall-card__box-value purple-text-1"><strong>Mars</strong></div>
+          <div class="paywall-card__box-value purple-text-1">
+            <strong>{{ signList[appData.sign]?.planet }}</strong>
+          </div>
         </div>
       </div>
       <div class="paywall-card__col">
@@ -53,7 +55,9 @@ const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
         </div>
         <div class="paywall-card__box">
           <div class="paywall-card__box-title">Element</div>
-          <div class="paywall-card__box-value purple-text-1"><strong>Air</strong></div>
+          <div class="paywall-card__box-value purple-text-1">
+            <strong>{{ signList[appData.sign]?.element }}</strong>
+          </div>
         </div>
       </div>
     </div>

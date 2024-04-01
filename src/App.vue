@@ -8,6 +8,7 @@ import AimSection from './components/sections/AimSection.vue'
 import ResultSection from './components/sections/ResultSection.vue'
 import BirthSection from './components/sections/BirthSection.vue'
 import ReviewsSection from './components/sections/ReviewsSection.vue'
+import ReviewsResultSection from './components/sections/ReviewsResultSection.vue'
 import UserHistory from './components/sections/UserHistory.vue'
 import UserTalantsAndCareer from './components/sections/UserTalantsAndCareer.vue'
 import BasicDataQuestions from './components/sections/BasicDataQuestions.vue'
@@ -25,7 +26,7 @@ import { useMainStore } from './stores/main'
 import { storeToRefs } from 'pinia'
 
 const store = useMainStore()
-const { currentStep, currentStepData, appData, fullScreenPage, stepInfoData } = storeToRefs(store)
+const { currentStep, currentStepData, appData, fullScreenPage, stepInfoData, signList } = storeToRefs(store)
 const pageType = ref(null)
 
 const stepsData = {
@@ -81,9 +82,8 @@ const stepsData = {
     },
     {
       type: 'result',
-      componentName: ResultSection,
+      componentName: ReviewsResultSection,
       resultTitle: 'To find out what works for us, we often need to understand what doesn’t.',
-      resultContent: `Libra individuals with the ruling Mars require a tailored approach to building a relationship. <br> <br> By analyzing the astrological synastry between you and your partner, we will uncover insights to optimize your relationship and foster a fulfilling connection.`,
       resultButtonText: 'Let’s finish this!',
       resultImage: 'result-2.jpg',
       fullScreenPage: true,

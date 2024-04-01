@@ -111,19 +111,7 @@ const statsList = {
         </p>
       </div>
       <div v-else class="your-reading__description">
-        <p>
-          Ruled by Mars, the God of war, Aries are the warriors of the Zodiac who fight for what they want in life. They
-          don’t expect easy wins, they know that life is a battle. Aries men are the type to burn the candle at both
-          ends. They put in the hours at the office and in the gym, and never miss an opportunity to make new
-          connections and get ahead.
-        </p>
-        <br />
-        <p>
-          One of the Cardinal signs, an Aries trait is how they put themselves first. They like to lead from the front,
-          and they always put their needs and dreams in front of everything else in life. They can have a tendency to
-          tread on others on their way to the top, especially since they are highly competitive. One of the Fire signs,
-          they
-        </p>
+        <div v-html="signList[appData.sign]?.personality[appData.gender]"></div>
       </div>
     </div>
 

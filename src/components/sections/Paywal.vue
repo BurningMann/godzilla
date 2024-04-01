@@ -81,7 +81,7 @@ onMounted(() => {})
           <div>
             <span>Goal</span>
             <br />
-            <span class="semibold">Become happier</span>
+            <span class="semibold">{{ appData?.motivationing_future.our_approach_helps_you_beyond[0] }}</span>
           </div>
         </div>
 

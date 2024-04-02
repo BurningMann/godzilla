@@ -45,12 +45,10 @@ const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
             </strong>
           </div>
         </div>
-        <div v-if="appData.where_were_you_born" class="paywall-card__box">
-          <div class="paywall-card__box-title">Place of birth</div>
+        <div class="paywall-card__box">
+          <div class="paywall-card__box-title">Modality</div>
           <div class="paywall-card__box-value purple-text-1">
-            <strong>
-              {{ appData.where_were_you_born }}
-            </strong>
+            <strong>{{ signList[appData.sign]?.modality }}</strong>
           </div>
         </div>
         <div class="paywall-card__box">

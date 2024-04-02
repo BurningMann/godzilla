@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 
@@ -11,7 +11,7 @@ import BackArrow from '../../components/elements/BackArrow.vue'
 import ResultSection from '../../components/sections/ResultSection.vue'
 
 const store = useMainStore()
-const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData } = storeToRefs(store)
+const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData, signList } = storeToRefs(store)
 
 const currentSectionStep = ref(0)
 
@@ -35,7 +35,7 @@ function setData(slug, data) {
   nextStep()
 }
 
-const sectionStepData = [
+const sectionStepData = ref([
   {
     stepTitle: 'Do you agree with this statement?',
     stepSubtext: '«My partner and I can talk about any issue together»',
@@ -316,7 +316,7 @@ const sectionStepData = [
         value: 'A little anxious, honestly',
         result: {
           type: 'result',
-          resultImage: 'result-8.jpg',
+          resultImage: 'result-10.jpg',
           resultTitle: `It’s totally normal to feel anxious, Cancer.`,
           resultContent: `But we know you can do this. Let’s keep going so we can create your personal guidance plan based on your astrological profile.`,
           resultButtonText: 'Continue',
@@ -328,7 +328,7 @@ const sectionStepData = [
         value: 'Not sure',
         result: {
           type: 'result',
-          resultImage: 'result-8.jpg',
+          resultImage: 'result-10.jpg',
           resultTitle: `It’s totally normal to feel anxious, Cancer.`,
           resultContent: `But we know you can do this. Let’s keep going so we can create your personal guidance plan based on your astrological profile.`,
           resultButtonText: 'Continue',
@@ -380,13 +380,37 @@ const sectionStepData = [
     resultButtonText: 'Continue',
     fullScreenPage: true,
   },
-]
+])
+
+onMounted(() => {
+  sectionStepData.value.forEach((item) => {
+    if (item.slug === 'are_you_satisfied_with_how_you_and_your_partner_communicate') {
+      item.list.forEach((el) => {
+        if (el.value === 'Yes') {
+          el.resultTitle = `Great to hear! <br> Based on our data only 26% of people with their sun in ${
+            signList.value[appData.value.sign]?.name
+          } find it easy to communicate with their ${signList.value[appData.value.partner_sign]?.name} partner!`
+        } else if (el.value === 'No') {
+          el.resultTitle = `You’re not alone. <br> Based on our data 74% of people with their sun in ${
+            signList.value[appData.value.sign]?.name
+          } find it difficult to communicate with their ${signList.value[appData.value.partner_sign]?.name} partner.`
+        }
+      })
+    } else if (item.slug === 'do_you_share_a_common_vision_for_your_future') {
+      item.list.forEach((el, index) => {
+        if (index > 0) {
+          el.resultTitle = `It’s totally normal to feel anxious, ${signList.value[appData.value.sign]?.name}.`
+        }
+      })
+    }
+  })
+})
 
 watch(
   currentSectionStep,
   (val) => {
-    fullScreenPage.value = sectionStepData[val]?.fullScreenPage
-    currentStepData.value = sectionStepData[val]
+    fullScreenPage.value = sectionStepData.value[val]?.fullScreenPage
+    currentStepData.value = sectionStepData.value[val]
     stepInfoData.value.currentStep = currentSectionStep.value + stepInfoData.value.startStep
   },
   { immediate: true }

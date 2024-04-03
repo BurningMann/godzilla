@@ -137,7 +137,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <Button :text="'GET MY READING FOR $1'" @click="showPayment = true" />
+        <Button :text="'GET MY READING FOR $1'" @click="showPayment = true" class="payment-button" />
 
         <div class="payment-text">
           Your plan will be available immediately after registration. No hidden payments.
@@ -252,14 +252,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <Button :text="'GET MY READING'" @click="showPayment = true" />
-
-        <div class="payment-text">
-          We’ve automatically applied discount to your first subscription price. Please note that your subscription will
-          be automatically renewed at full price of €48.96 at the end of chosen subscription term. Learn more about
-          cancellation and refund policy in
-          <a href="#" target="_blank"><span class="semibold">Subscription Policy</span> </a> .
-        </div>
+        <Button :text="'GET MY READING'" @click="showPayment = true" class="payment-button" />
 
         <div class="pay-safe">
           <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -277,7 +270,7 @@ onMounted(() => {
 
         <PaymentVariant />
 
-        <div class="copy">© 2024 QWERTY 123</div>
+        <div class="copy">© 2024 Natal Chart</div>
       </div>
     </section>
 
@@ -393,11 +386,15 @@ onMounted(() => {
   text-align: center;
   color: var(--c-black);
   opacity: 0.7;
-  margin: 2.5rem 0;
+  margin-bottom: 2.5rem;
 
   a {
     text-decoration: underline;
   }
+}
+
+.payment-button {
+  margin-bottom: 2.5rem;
 }
 
 .pay-safe {

@@ -387,19 +387,19 @@ onMounted(() => {
     if (item.slug === 'are_you_satisfied_with_how_you_and_your_partner_communicate') {
       item.list.forEach((el) => {
         if (el.value === 'Yes') {
-          el.resultTitle = `Great to hear! <br> Based on our data only 26% of people with their sun in ${
+          el.result.resultTitle = `Great to hear! <br> Based on our data only 26% of people with their sun in ${
             signList.value[appData.value.sign]?.name
           } find it easy to communicate with their ${signList.value[appData.value.partner_sign]?.name} partner!`
         } else if (el.value === 'No') {
-          el.resultTitle = `You’re not alone. <br> Based on our data 74% of people with their sun in ${
+          el.result.resultTitle = `You’re not alone. <br> Based on our data 74% of people with their sun in ${
             signList.value[appData.value.sign]?.name
           } find it difficult to communicate with their ${signList.value[appData.value.partner_sign]?.name} partner.`
         }
       })
     } else if (item.slug === 'do_you_share_a_common_vision_for_your_future') {
       item.list.forEach((el, index) => {
-        if (index > 0) {
-          el.resultTitle = `It’s totally normal to feel anxious, ${signList.value[appData.value.sign]?.name}.`
+        if (index > 0 && el.result) {
+          el.result.resultTitle = `It’s totally normal to feel anxious, ${signList.value[appData.value.sign]?.name}.`
         }
       })
     }

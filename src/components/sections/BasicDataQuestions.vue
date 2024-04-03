@@ -1,8 +1,9 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 
+import states from '../../json/states.json'
 import Button from '../../components/elements/Button.vue'
 import SingleList from '../../components/elements/SingleList.vue'
 import StepTop from '../../components/elements/StepTop.vue'
@@ -36,7 +37,7 @@ const prevStep = () => {
 const dateOfBirth = ref('')
 const timeOfBirth = ref('')
 const placeOfBirdth = ref({
-  country: '',
+  country: 'United States',
   city: '',
 })
 const countryOptions = ref([
@@ -44,20 +45,24 @@ const countryOptions = ref([
     label: 'United States',
     value: 'United States',
   },
-  {
-    label: 'United States1',
-    value: 'United States1',
-  },
-  {
-    label: 'United States2',
-    value: 'United States2',
-  },
 ])
+
+const options = ref([])
+const remoteMethod = (query) => {
+  if (query) {
+    options.value = states.filter((item) => {
+      return item.label.toLowerCase().includes(query.toLowerCase())
+    })
+  } else {
+    options.value = []
+  }
+}
+
 const showSign = ref(false)
-const sectionStepData = [
+const sectionStepData = ref([
   {
     stepTitle: 'Which statement best describes you?',
-    stepPrevtext: 'Taurus women in their 20s need a slightly different approach to improve their relationship.',
+    stepPrevtext: '',
     type: 'list',
     slug: 'which_statement_best_describes_you',
     list: [
@@ -131,21 +136,21 @@ const sectionStepData = [
     type: 'result',
     fullScreenPage: true,
   },
-]
+])
 
 watch(
   currentSectionStep,
   (val) => {
     if (
-      sectionStepData[val]?.slug === 'what_time_your_partner_was_born' &&
+      sectionStepData.value[val]?.slug === 'what_time_your_partner_was_born' &&
       !form.value.do_you_know_what_time_your_artner_was_born
     ) {
       fullScreenPage.value = true
     } else {
-      fullScreenPage.value = sectionStepData[val]?.fullScreenPage
+      fullScreenPage.value = sectionStepData.value[val]?.fullScreenPage
     }
 
-    currentStepData.value = sectionStepData[val]
+    currentStepData.value = sectionStepData.value[val]
     stepInfoData.value.currentStep = currentSectionStep.value + stepInfoData.value.startStep
   },
   { immediate: true }
@@ -177,6 +182,30 @@ function setData(slug, data) {
   form.value[slug] = data
   nextStep()
 }
+
+onMounted(() => {
+  let age = ''
+  if (appData.value.date_of_birth?.year > 1993 && appData.value.date_of_birth?.year < 2005) {
+    age = '20s'
+  } else if (appData.value.date_of_birth?.year > 1983 && appData.value.date_of_birth?.year < 1994) {
+    age = '30s'
+  } else if (appData.value.date_of_birth?.year > 1973 && appData.value.date_of_birth?.year < 1984) {
+    age = '40s'
+  } else if (appData.value.date_of_birth?.year > 1963 && appData.value.date_of_birth?.year < 1974) {
+    age = '50s'
+  } else if (appData.value.date_of_birth?.year > 1959 && appData.value.date_of_birth?.year < 1964) {
+    age = '60s'
+  } else {
+    age = 'teen age'
+  }
+  sectionStepData.value.forEach((item) => {
+    if (item.slug === 'which_statement_best_describes_you') {
+      item.stepPrevtext = `${signList.value[appData.value.sign]?.name} ${
+        appData.value.gender === 'Male' ? 'man' : 'woman'
+      } in their ${age} need a slightly different approach to improve their relationship.`
+    }
+  })
+})
 </script>
 
 <template>
@@ -304,8 +333,16 @@ function setData(slug, data) {
             <el-select v-model="placeOfBirdth.country" placeholder="Select" size="large">
               <el-option v-for="item in countryOptions" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
-            <el-select v-model="placeOfBirdth.city" placeholder="Select" size="large">
-              <el-option v-for="item in countryOptions" :key="item.value" :label="item.label" :value="item.value" />
+            <el-select
+              v-model="placeOfBirdth.city"
+              placeholder="Please enter a State"
+              size="large"
+              filterable
+              remote
+              reserve-keyword
+              :remote-method="remoteMethod"
+            >
+              <el-option v-for="item in options" :key="item" :label="item.label" :value="item.value" />
             </el-select>
           </div>
           <div class="buttons-container">

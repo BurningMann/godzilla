@@ -13,6 +13,11 @@ const emit = defineEmits(['close'])
 
 const props = defineProps({
   timer: Object,
+  title: String,
+  oldPrice: [Number, String],
+  price: [Number, String],
+  footerText: String,
+  buttonText: String,
 })
 
 const email = ref('')
@@ -90,11 +95,16 @@ onMounted(() => {
     <div>
       <div class="pay-dialog__table">
         <div class="pay-dialog__row">
-          <div><strong>Start your 7-day trial</strong></div>
+          <div>
+            <strong>{{ title }}</strong>
+          </div>
         </div>
         <div class="pay-dialog__row">
           <div>Total today:</div>
-          <div class="pay-dialog__row-price"><span class="old-price">$7.99</span><strong>$1</strong></div>
+          <div class="pay-dialog__row-price">
+            <span class="old-price">${{ oldPrice }}</span
+            ><strong>${{ price }}</strong>
+          </div>
         </div>
         <div class="pay-dialog__row">
           <div class="pay-dialog__small-title">Email</div>
@@ -156,14 +166,13 @@ onMounted(() => {
               <input v-model="form.cardCvv" type="text" class="input" placeholder="CVV" />
             </div>
           </form>
-          <Button :text="'Start 7-Day Trial'" @click="currentStep++" />
+          <Button :text="buttonText" @click="currentStep++" />
         </div>
 
         <div class="footer-text">
-          Your plan will be available immediately after registration. No hidden payments.
-          <strong>Today you will be charged €1 for 7-days trial</strong> , then €39.99 after trial for your 30-Day plan.
+          <span v-html="footerText"></span>
           All refunds are proceeded according to our money-back policy. To cancel your plan, simply let us know:
-          support@natal-chart.online
+          <a href="mailto:support@natal-chart.online">support@natal-chart.online</a>
         </div>
       </div>
     </div>

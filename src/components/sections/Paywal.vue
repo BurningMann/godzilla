@@ -274,7 +274,16 @@ onMounted(() => {
       </div>
     </section>
 
-    <PayDialog v-show="showPayment" @close="showPayment = false" :timer="timerData" />
+    <PayDialog
+      v-show="showPayment"
+      @close="showPayment = false"
+      :timer="timerData"
+      :old-price="7.99"
+      :price="1"
+      :title="'Start your 7-day trial'"
+      :footer-text="`Your plan will be available immediately after registration. No hidden payments. <strong>Today you will be charged €1 for 7-days trial</strong> , then €39.99 after trial for your 30-Day plan.`"
+      :button-text="'Start 7-Day Trial'"
+    />
   </div>
 </template>
 

@@ -19,7 +19,9 @@ import MotivationingFuture from './components/sections/MotivationingFuture.vue'
 
 import FinalAnlyzSection from './components/sections/FinalAnlyzSection.vue'
 import EmailSection from './components/sections/EmailSection.vue'
+import PaywalLoading from './components/sections/PaywalLoading.vue'
 import Paywal from './components/sections/Paywal.vue'
+import UpsaleStart from './components/sections/UpsaleStart.vue'
 import Congratulations from './components/sections/Congratulations.vue'
 
 import { useMainStore } from './stores/main'
@@ -208,12 +210,21 @@ const stepsData = {
       componentName: EmailSection,
     },
     {
+      type: 'paywalLoading',
+      componentName: PaywalLoading,
+    },
+    {
       type: 'paywal',
       componentName: Paywal,
       fullScreenPage: true,
     },
   ],
   upsaleSection: [
+    {
+      type: 'upsalestart',
+      componentName: UpsaleStart,
+      fullScreenPage: true,
+    },
     {
       type: 'congratulations',
       componentName: Congratulations,

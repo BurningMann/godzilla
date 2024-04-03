@@ -1,10 +1,21 @@
+<script setup>
+const props = defineProps({
+  color: {
+    type: String,
+    default: 'white',
+  },
+})
+</script>
+
 <template>
   <div class="loading">
-    <div class="loading__point">.</div>
-    <div class="loading__point">.</div>
-    <div class="loading__point">.</div>
+    <div class="loading__point" :style="{ color: color }">.</div>
+    <div class="loading__point" :style="{ color: color }">.</div>
+    <div class="loading__point" :style="{ color: color }">.</div>
   </div>
 </template>
+
+color: rgba(0, 0, 0, 1);
 
 <style scoped lang="scss">
 .loading {
@@ -14,7 +25,10 @@
   font-weight: 700;
   font-size: 20px;
   text-align: center;
-  color: rgba(255, 255, 255, 0.5);
+
+  &__point {
+    opacity: 0.5;
+  }
 
   @for $i from 1 through 3 {
     .loading__point:nth-child(#{$i}) {
@@ -25,13 +39,13 @@
 
 @keyframes flash {
   0% {
-    color: rgba(255, 255, 255, 0.5);
+    opacity: 0.5;
   }
   50% {
-    color: rgba(255, 255, 255, 1);
+    opacity: 1;
   }
   100% {
-    color: rgba(255, 255, 255, 0.5);
+    opacity: 0.5;
   }
 }
 </style>

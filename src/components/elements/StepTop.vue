@@ -10,6 +10,10 @@ defineProps({
     type: String,
     default: '',
   },
+  localSubtext: {
+    type: String,
+    default: '',
+  },
 })
 </script>
 
@@ -21,6 +25,10 @@ defineProps({
       class="step-title"
       v-html="localTitle || currentStepData.stepTitle"
     />
-    <div v-if="currentStepData?.stepSubtext" class="step-subtext" v-html="currentStepData.stepSubtext" />
+    <div
+      v-if="localSubtext || currentStepData?.stepSubtext"
+      class="step-subtext"
+      v-html="localSubtext || currentStepData.stepSubtext"
+    />
   </div>
 </template>

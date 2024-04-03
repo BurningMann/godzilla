@@ -493,6 +493,7 @@ h1 {
   background: #fff8ff;
   border-radius: 15px;
   padding: 3rem 2rem;
+  position: relative;
 
   &__title {
     color: var(--c-black);
@@ -500,6 +501,23 @@ h1 {
     margin-bottom: 2rem;
     font-weight: 700;
     font-size: 1.8rem;
+  }
+
+  &__text {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  &__body {
+    margin-bottom: 3rem;
+  }
+
+  &__close {
+    position: absolute;
+    right: 1.4rem;
+    top: 1.4rem;
+    cursor: pointer;
   }
 
   &__buttons {

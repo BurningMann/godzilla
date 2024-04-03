@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 
@@ -11,7 +11,7 @@ import BackArrow from '../../components/elements/BackArrow.vue'
 import ResultSection from '../../components/sections/ResultSection.vue'
 
 const store = useMainStore()
-const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData } = storeToRefs(store)
+const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData, signList } = storeToRefs(store)
 
 const currentSectionStep = ref(0)
 
@@ -35,10 +35,10 @@ function setData(slug, data) {
   nextStep()
 }
 
-const sectionStepData = [
+const sectionStepData = ref([
   {
     stepTitle: 'However, how did your previous relationship make you feel?',
-    stepPrevtext: 'Taurus women in their 20s need a unique strategy to discover their ideal partner.',
+    stepPrevtext: '',
     type: 'list',
     slug: 'however_how_did_your_previous_relationship_make_you_feel',
     list: [
@@ -174,17 +174,41 @@ const sectionStepData = [
     resultButtonText: 'Continue',
     fullScreenPage: true,
   },
-]
+])
 
 watch(
   currentSectionStep,
   (val) => {
-    fullScreenPage.value = sectionStepData[val]?.fullScreenPage
-    currentStepData.value = sectionStepData[val]
+    fullScreenPage.value = sectionStepData.value[val]?.fullScreenPage
+    currentStepData.value = sectionStepData.value[val]
     stepInfoData.value.currentStep = currentSectionStep.value + stepInfoData.value.startStep
   },
   { immediate: true }
 )
+
+onMounted(() => {
+  let age = ''
+  if (appData.value.date_of_birth?.year > 1993 && appData.value.date_of_birth?.year < 2005) {
+    age = '20s'
+  } else if (appData.value.date_of_birth?.year > 1983 && appData.value.date_of_birth?.year < 1994) {
+    age = '30s'
+  } else if (appData.value.date_of_birth?.year > 1973 && appData.value.date_of_birth?.year < 1984) {
+    age = '40s'
+  } else if (appData.value.date_of_birth?.year > 1963 && appData.value.date_of_birth?.year < 1974) {
+    age = '50s'
+  } else if (appData.value.date_of_birth?.year > 1959 && appData.value.date_of_birth?.year < 1964) {
+    age = '60s'
+  } else {
+    age = 'teen age'
+  }
+  sectionStepData.value.forEach((item) => {
+    if (item.slug === 'however_how_did_your_previous_relationship_make_you_feel') {
+      item.stepPrevtext = `${signList.value[appData.value.sign]?.name} ${
+        appData.value.gender === 'Male' ? 'man' : 'woman'
+      } in their ${age} need a unique strategy to discover their ideal partner`
+    }
+  })
+})
 </script>
 
 <template>

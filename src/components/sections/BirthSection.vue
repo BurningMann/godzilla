@@ -1,7 +1,8 @@
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
+import states from '../../json/states.json'
 import Button from '../../components/elements/Button.vue'
 import StepTop from '../../components/elements/StepTop.vue'
 import BackArrow from '../../components/elements/BackArrow.vue'
@@ -39,7 +40,7 @@ const timeOfBirthSwith = ref(null)
 const dateOfBirth = ref('')
 const timeOfBirth = ref('')
 const placeOfBirdth = ref({
-  country: '',
+  country: 'United States',
   city: '',
 })
 
@@ -48,16 +49,18 @@ const countryOptions = ref([
     label: 'United States',
     value: 'United States',
   },
-  {
-    label: 'United States1',
-
-    value: 'United States1',
-  },
-  {
-    label: 'United States2',
-    value: 'United States2',
-  },
 ])
+
+const options = ref([])
+const remoteMethod = (query) => {
+  if (query) {
+    options.value = states.filter((item) => {
+      return item.label.toLowerCase().includes(query.toLowerCase())
+    })
+  } else {
+    options.value = []
+  }
+}
 
 const sectionStepData = [
   {
@@ -236,8 +239,16 @@ const sign = (day, month) => {
           <el-select v-model="placeOfBirdth.country" placeholder="Select" size="large">
             <el-option v-for="item in countryOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
-          <el-select v-model="placeOfBirdth.city" placeholder="Select" size="large">
-            <el-option v-for="item in countryOptions" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select
+            v-model="placeOfBirdth.city"
+            placeholder="Please enter a State"
+            size="large"
+            filterable
+            remote
+            reserve-keyword
+            :remote-method="remoteMethod"
+          >
+            <el-option v-for="item in options" :key="item" :label="item.label" :value="item.value" />
           </el-select>
         </div>
         <div class="buttons-container">

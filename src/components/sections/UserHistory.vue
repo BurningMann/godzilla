@@ -206,6 +206,10 @@ onMounted(() => {
       item.stepPrevtext = `${signList.value[appData.value.sign]?.name} ${
         appData.value.gender === 'Male' ? 'man' : 'woman'
       } in their ${age} need a unique strategy to discover their ideal partner`
+    } else if (item.type === 'result') {
+      item.resultTitle = `You're known keeping your emotions in check, ${
+        signList.value[appData.value.sign]?.name
+      }! However, others want to see a more passionate side of you.`
     }
   })
 })

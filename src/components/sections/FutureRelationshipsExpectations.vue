@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 
@@ -11,7 +11,7 @@ import BackArrow from '../../components/elements/BackArrow.vue'
 import ResultSection from '../../components/sections/ResultSection.vue'
 
 const store = useMainStore()
-const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData } = storeToRefs(store)
+const { currentStep, appData, fullScreenPage, currentStepData, stepInfoData, signList } = storeToRefs(store)
 
 const currentSectionStep = ref(0)
 
@@ -143,6 +143,14 @@ watch(
   },
   { immediate: true }
 )
+
+onMounted(() => {
+  sectionStepData.value.forEach((item) => {
+    if (item.type === 'result') {
+      item.resultTitle = `You’ve come to the right place, ${signList.value[appData.value.sign]?.name}!`
+    }
+  })
+})
 </script>
 
 <template>

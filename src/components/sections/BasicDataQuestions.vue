@@ -3,7 +3,7 @@ import { ref, watch, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
 
-import states from '../../json/states.json'
+import countries from '../../json/countries.json'
 import Button from '../../components/elements/Button.vue'
 import SingleList from '../../components/elements/SingleList.vue'
 import StepTop from '../../components/elements/StepTop.vue'
@@ -37,21 +37,15 @@ const prevStep = () => {
 const dateOfBirth = ref('')
 const timeOfBirth = ref('')
 const placeOfBirdth = ref({
-  country: 'United States',
+  country: '',
   city: '',
 })
-const countryOptions = ref([
-  {
-    label: 'United States',
-    value: 'United States',
-  },
-])
 
 const options = ref([])
 const remoteMethod = (query) => {
   if (query) {
-    options.value = states.filter((item) => {
-      return item.label.toLowerCase().includes(query.toLowerCase())
+    options.value = countries.filter((item) => {
+      return item.name.toLowerCase().includes(query.toLowerCase())
     })
   } else {
     options.value = []
@@ -330,20 +324,18 @@ onMounted(() => {
         </div>
         <div v-else-if="sectionStepData[currentSectionStep]?.slug === 'where_was_your_partner_born'">
           <div class="select-list">
-            <el-select v-model="placeOfBirdth.country" placeholder="Select" size="large">
-              <el-option v-for="item in countryOptions" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
             <el-select
-              v-model="placeOfBirdth.city"
-              placeholder="Please enter a State"
+              v-model="placeOfBirdth.country"
+              placeholder="Enter country"
               size="large"
               filterable
               remote
               reserve-keyword
               :remote-method="remoteMethod"
             >
-              <el-option v-for="item in options" :key="item" :label="item.label" :value="item.value" />
+              <el-option v-for="item in options" :key="item.code" :label="item.name" :value="item.name" />
             </el-select>
+            <input v-model="placeOfBirdth.city" type="text" class="input" placeholder="Enter City" />
           </div>
           <div class="buttons-container">
             <Button :text="'Skip this for now'" :size="'small'" :gray="true" @click="nextStep" />

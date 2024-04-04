@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import states from '../../json/states.json'
+import countries from '../../json/countries.json'
 import Button from '../../components/elements/Button.vue'
 import StepTop from '../../components/elements/StepTop.vue'
 import BackArrow from '../../components/elements/BackArrow.vue'
@@ -40,22 +40,15 @@ const timeOfBirthSwith = ref(null)
 const dateOfBirth = ref('')
 const timeOfBirth = ref('')
 const placeOfBirdth = ref({
-  country: 'United States',
+  country: '',
   city: '',
 })
-
-const countryOptions = ref([
-  {
-    label: 'United States',
-    value: 'United States',
-  },
-])
 
 const options = ref([])
 const remoteMethod = (query) => {
   if (query) {
-    options.value = states.filter((item) => {
-      return item.label.toLowerCase().includes(query.toLowerCase())
+    options.value = countries.filter((item) => {
+      return item.name.toLowerCase().includes(query.toLowerCase())
     })
   } else {
     options.value = []
@@ -153,8 +146,8 @@ const sign = (day, month) => {
             Your birth date, place, and time align the stars uniquely for you, making you much more than just your
             Zodiac sign.
             <br /><br />
-            A key element in your Natal Chart is your Ascendant (Sun sign). Let's delve deeper into what this means for
-            you!
+            A key element in your Natal Chart is your Ascendant (Rising sign). Let's delve deeper into what this means
+            for you!
           </div>
         </div>
         <div class="footer-box"><Button :text="'Continue'" @click="nextStep" /></div>
@@ -236,20 +229,18 @@ const sign = (day, month) => {
 
       <div v-else-if="currentSectionStep === 3">
         <div class="select-list">
-          <el-select v-model="placeOfBirdth.country" placeholder="Select" size="large">
-            <el-option v-for="item in countryOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
           <el-select
-            v-model="placeOfBirdth.city"
-            placeholder="Please enter a State"
+            v-model="placeOfBirdth.country"
+            placeholder="Enter country"
             size="large"
             filterable
             remote
             reserve-keyword
             :remote-method="remoteMethod"
           >
-            <el-option v-for="item in options" :key="item" :label="item.label" :value="item.value" />
+            <el-option v-for="item in options" :key="item.code" :label="item.name" :value="item.name" />
           </el-select>
+          <input v-model="placeOfBirdth.city" type="text" class="input" placeholder="Enter City" />
         </div>
         <div class="buttons-container">
           <Button

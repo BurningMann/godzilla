@@ -117,7 +117,7 @@ const sectionStepData = ref([
         result: {
           type: 'result',
           resultImage: 'result-7.jpg',
-          resultTitle: `Great to hear! <br> Based on our data only 26% of people with their sun in Cancer find it easy to communicate with their Taurus partner!`,
+          resultTitle: `Great to hear! <br> Based on our data only 26% of people with their Sun in Cancer find it easy to communicate with their Taurus partner!`,
           resultContent: `But there is always a room for improvement.`,
           resultButtonText: 'Continue',
           fullScreenPage: true,
@@ -129,7 +129,7 @@ const sectionStepData = ref([
         result: {
           type: 'result',
           resultImage: 'result-7.jpg',
-          resultTitle: `You’re not alone. <br> Based on our data 74% of people with their sun in Cancer find it difficult to communicate with their Taurus partner.`,
+          resultTitle: `You’re not alone. <br> Based on our data 74% of people with their Sun in Cancer find it difficult to communicate with their Taurus partner.`,
           resultContent: `But we can help you to improve this.`,
           resultButtonText: 'Continue',
           fullScreenPage: true,
@@ -387,11 +387,11 @@ onMounted(() => {
     if (item.slug === 'are_you_satisfied_with_how_you_and_your_partner_communicate') {
       item.list.forEach((el) => {
         if (el.value === 'Yes') {
-          el.result.resultTitle = `Great to hear! <br> Based on our data only 26% of people with their sun in ${
+          el.result.resultTitle = `Great to hear! <br> Based on our data only 26% of people with their Sun in ${
             signList.value[appData.value.sign]?.name
           } find it easy to communicate with their ${signList.value[appData.value.partner_sign]?.name} partner!`
         } else if (el.value === 'No') {
-          el.result.resultTitle = `You’re not alone. <br> Based on our data 74% of people with their sun in ${
+          el.result.resultTitle = `You’re not alone. <br> Based on our data 74% of people with their Sun in ${
             signList.value[appData.value.sign]?.name
           } find it difficult to communicate with their ${signList.value[appData.value.partner_sign]?.name} partner.`
         }

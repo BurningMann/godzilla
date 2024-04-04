@@ -123,12 +123,14 @@ onMounted(() => {
         <div class="pay-offer">
           <div class="pay-offer__top">Special offer</div>
           <div class="pay-offer__title">
-            <strong>Personalized reading for <span class="purple-text-1">$1</span></strong>
+            <strong
+              >Personalized reading for <span class="purple-text-1">${{ appData.currentPrice }}</span></strong
+            >
           </div>
           <div class="pay-offer__table">
             <div class="pay-offer__row">
               <div>Total today:</div>
-              <div>$1</div>
+              <div>${{ appData.currentPrice }}</div>
             </div>
             <div class="pay-offer__row">
               <div class="pay-offer__small-title">Including 1-week trial personal reading</div>
@@ -137,7 +139,11 @@ onMounted(() => {
           </div>
         </div>
 
-        <Button :text="'GET MY READING FOR $1'" @click="showPayment = true" class="payment-button" />
+        <Button
+          :text="`GET MY READING FOR $${appData.currentPrice}`"
+          @click="showPayment = true"
+          class="payment-button"
+        />
 
         <div class="payment-text">
           Your plan will be available immediately after registration. No hidden payments.
@@ -238,12 +244,14 @@ onMounted(() => {
         <div class="pay-offer">
           <div class="pay-offer__top">Special offer</div>
           <div class="pay-offer__title">
-            <strong>Personalized reading for <span class="purple-text-1">$1</span></strong>
+            <strong
+              >Personalized reading for <span class="purple-text-1">${{ appData.currentPrice }}</span></strong
+            >
           </div>
           <div class="pay-offer__table">
             <div class="pay-offer__row">
               <div>Total today:</div>
-              <div>$1</div>
+              <div>${{ appData.currentPrice }}</div>
             </div>
             <div class="pay-offer__row">
               <div class="pay-offer__small-title">Including 1-week trial personal reading</div>
@@ -279,7 +287,7 @@ onMounted(() => {
       @close="showPayment = false"
       :timer="timerData"
       :old-price="7.99"
-      :price="1"
+      :price="appData.currentPrice"
       :title="'Start your 7-day trial'"
       :footer-text="`Your plan will be available immediately after registration. No hidden payments. <strong>Today you will be charged €1 for 7-days trial</strong> , then €39.99 after trial for your 30-Day plan.`"
       :button-text="'Start 7-Day Trial'"

@@ -537,6 +537,11 @@ h1 {
   color: var(--c-black);
   font-weight: 400;
   font-size: 15px;
+  box-shadow: 0 4px 7px 0 #e3dfee !important;
+
+  &::placeholder {
+    color: var(--el-text-color-placeholder);
+  }
 }
 
 .copy {

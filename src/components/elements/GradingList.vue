@@ -1,5 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useMainStore } from '../../stores/main'
+const store = useMainStore()
+const { currentStepData } = storeToRefs(store)
+
 const emit = defineEmits(['nextStep'])
 
 defineProps({
@@ -37,8 +42,8 @@ function setData(item) {
       </div>
     </div>
     <div class="variants-list__grade-text">
-      <div>Not at all</div>
-      <div>Absolutely</div>
+      <div>{{ currentStepData.gradePrefix || 'Not at all' }}</div>
+      <div>{{ currentStepData.gradePostfix || 'Absolutely' }}</div>
     </div>
   </div>
 </template>

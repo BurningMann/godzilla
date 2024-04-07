@@ -52,7 +52,7 @@ function startTimer() {
     timerData.value.min = min
     timerData.value.sec = sec
 
-    if (remain < 0) {
+    if (remain <= 0) {
       clearInterval(countdown)
     }
   }, 1000)

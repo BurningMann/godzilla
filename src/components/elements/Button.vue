@@ -41,6 +41,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  pulse: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const viewButton = computed(() => {
@@ -51,6 +55,7 @@ const viewButton = computed(() => {
   if (props.gray) str = str + ` is-gray`
   if (props.yellow) str = str + ` is-yellow`
   if (props.black) str = str + ` is-black`
+  if (props.pulse) str = str + ` is-pulse`
   return str
 })
 </script>
@@ -68,6 +73,25 @@ const viewButton = computed(() => {
   border-radius: 0.83rem;
   border: none;
   transition: 0.3s;
+
+  &__icon {
+    flex-shrink: 0;
+
+    path {
+      stroke: currentColor;
+    }
+  }
+
+  &.is-pulse {
+    box-shadow: 0 0 0 0 rgba(100, 43, 114, 0.7);
+    animation: pulse 1.2s ease-in-out infinite;
+
+    @keyframes pulse {
+      to {
+        box-shadow: 0 0 0 7px rgba(100, 43, 114, 0);
+      }
+    }
+  }
 
   &.is-gray {
     background: #f0e9f0;
@@ -105,14 +129,6 @@ const viewButton = computed(() => {
 
   &.is-loading {
     pointer-events: none;
-  }
-
-  &__icon {
-    flex-shrink: 0;
-
-    path {
-      stroke: currentColor;
-    }
   }
 }
 </style>

@@ -108,6 +108,44 @@ const sectionStepData = [
         value: 'Sometimes',
       },
       {
+        label: 'Not sure',
+        value: 'Not sure',
+      },
+    ],
+  },
+  {
+    stepTitle: 'Do you remember small details about the people who are important to you?',
+    type: 'list',
+    slug: 'do_you_remember_small_details_about_the_people_who_are_important_to_you',
+    list: [
+      {
+        label: 'Yes',
+        value: 'Yes',
+      },
+      {
+        label: 'Sometimes',
+        value: 'Sometimes',
+      },
+      {
+        label: 'Never',
+        value: 'Never',
+      },
+    ],
+  },
+  {
+    stepTitle: 'Do you share your inner self with people you like?',
+    type: 'list',
+    slug: 'do_you_share_your_inner_self_with_people_you_like',
+    list: [
+      {
+        label: 'Yes',
+        value: 'Yes',
+      },
+      {
+        label: 'Sometimes',
+        value: 'Sometimes',
+      },
+      {
         label: 'Never',
         value: 'Never',
       },

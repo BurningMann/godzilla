@@ -44,7 +44,7 @@ const getList = [
 
 const showPayment = ref(false)
 
-const count = 8
+const count = 1
 const started = ref(false)
 const timerData = ref({
   min: 0,
@@ -68,7 +68,7 @@ function startTimer() {
     timerData.value.min = min
     timerData.value.sec = sec
 
-    if (remain < 0) {
+    if (remain <= 0) {
       clearInterval(countdown)
     }
   }, 1000)
@@ -84,8 +84,8 @@ onMounted(() => {
   <div class="paywal-page">
     <section class="paywal-page__section">
       <div class="paywal-page__top">
-        <div>-51% discount reserved for:</div>
-        <div>
+        <div class="paywal-page__top-text">Personalized plan reserved for:</div>
+        <div class="paywal-page__top-timer">
           <strong>{{ timerData.min }}:{{ timerData.sec }}</strong>
         </div>
         <Button :text="'Continue'" size="tiny" @click="showPayment = true" />
@@ -141,8 +141,9 @@ onMounted(() => {
 
         <Button
           :text="`GET MY READING FOR $${appData.currentPrice}`"
-          @click="showPayment = true"
           class="payment-button"
+          :pulse="true"
+          @click="showPayment = true"
         />
 
         <div class="payment-text">
@@ -260,7 +261,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <Button :text="'GET MY READING'" @click="showPayment = true" class="payment-button" />
+        <Button :text="'GET MY READING'" class="payment-button" :pulse="true" @click="showPayment = true" />
 
         <div class="pay-safe">
           <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -309,12 +310,17 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     gap: 1.2rem;
-    padding: 0.6rem 0;
+    padding: 0.6rem var(--container-padding);
+
+    &-timer {
+      flex-shrink: 0;
+    }
 
     .button {
       width: max-content;
-      padding: 0 3rem;
+      padding: 0 1rem;
       font-weight: 700;
+      width: 10rem;
     }
   }
 

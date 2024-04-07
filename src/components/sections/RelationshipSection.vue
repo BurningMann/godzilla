@@ -45,11 +45,11 @@ const sectionStepData = {
     },
     {
       icon: '🔱',
-      label: 'Looking',
-      value: 'looking',
+      label: 'Looking for a soul mate',
+      value: 'Looking',
     },
     {
-      icon: '👩‍🦰️',
+      icon: '🙌',
       label: 'Other',
       value: 'other',
     },
@@ -61,14 +61,14 @@ const sectionStepData = {
       value: 'single',
     },
     {
-      icon: '💍',
-      label: 'Married',
-      value: 'married',
-    },
-    {
       icon: '💖',
       label: 'In a relationship',
       value: 'relationship',
+    },
+    {
+      icon: '💍',
+      label: 'Married',
+      value: 'married',
     },
     {
       icon: '💔',
@@ -81,7 +81,7 @@ const sectionStepData = {
       value: 'looking',
     },
     {
-      icon: '👱‍♂️',
+      icon: '🙌',
       label: 'Other',
       value: 'other',
     },
@@ -93,7 +93,7 @@ const sectionStepData = {
   <div class="quiz-page">
     <div>
       <BackArrow @click="currentStep--" />
-      <StepTop :local-title="'What is your relationship status?'" />
+      <StepTop :local-title="'To start, tell us about your <br> relationship status:'" />
       <SingleList
         :list="sectionStepData[appData.gender]"
         :button-text="'Continue'"

@@ -146,16 +146,10 @@ const currentSectionStep = ref(1)
       </div>
       <div class="email-page__people">
         <div class="email-page__people-title">772 people joined today</div>
-        <div class="email-page__people-wrapper custom-scrollbar">
-          <div class="email-page__people-item">ivan***** chose $9</div>
-          <div class="email-page__people-item">ivan***** chose $9</div>
-          <div class="email-page__people-item">ivan***** chose $9</div>
-          <div class="email-page__people-item">ivan***** chose $9</div>
-          <div class="email-page__people-item">ivan***** chose $9</div>
-          <div class="email-page__people-item">ivan***** chose $9</div>
-          <div class="email-page__people-item">ivan***** chose $9</div>
-          <div class="email-page__people-item">ivan***** chose $9</div>
-          <div class="email-page__people-item">ivan***** chose $9</div>
+        <div class="email-page__people-wrapper">
+          <div class="email-page__people-item">pete***** <span>chose $9</span></div>
+          <div class="email-page__people-item">jane***** <span>chose $5</span></div>
+          <div class="email-page__people-item">sabr***** <span>chose $9</span></div>
         </div>
       </div>
 
@@ -279,18 +273,22 @@ const currentSectionStep = ref(1)
   &__people-wrapper {
     display: flex;
     gap: 0.5rem;
-    overflow: auto;
     width: 100%;
     padding: 0 1rem 1rem 1rem;
+    overflow: hidden;
   }
 
   &__people-item {
     border-radius: 0.4rem;
     background: var(--c-white);
     padding: 0.3rem 1.2rem;
-    font-weight: 700;
+
     color: rgba(45, 45, 45, 0.7);
     flex-shrink: 0;
+
+    span {
+      font-weight: 700;
+    }
   }
 }
 </style>

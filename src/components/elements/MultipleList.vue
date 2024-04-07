@@ -1,6 +1,10 @@
 <script setup>
 import Button from '../../components/elements/Button.vue'
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useMainStore } from '../../stores/main'
+const store = useMainStore()
+const { currentStepData } = storeToRefs(store)
 
 defineProps({
   list: {
@@ -14,7 +18,7 @@ const listData = ref([])
 
 <template>
   <div>
-    <div class="variants-list__message">Multiple choice supported</div>
+    <div class="variants-list__message">{{ currentStepData.multiplePrefixText || 'Multiple choice supported' }}</div>
     <div class="variants-list">
       <label
         v-for="item in list"

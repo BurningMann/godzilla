@@ -59,10 +59,8 @@ const sectionStepData = {
           value: 'Use astrology for more romance and passion',
         },
         {
-          label:
-            'Make big decisions together (like moving in or starting a family)Have a relationship that matches my values and goals',
-          value:
-            'Make big decisions together (like moving in or starting a family)Have a relationship that matches my values and goals',
+          label: 'Make big decisions together (like moving in or starting a family)',
+          value: 'Make big decisions together (like moving in or starting a family)',
         },
         {
           label: 'Have a relationship that matches my values and goals',
@@ -191,6 +189,7 @@ const sectionStepData = {
     {
       stepTitle: 'What do you want to improve about your relationships by using astrology?',
       type: 'multipleList',
+      multiplePrefixText: 'Choose all that apply',
       slug: 'what_do_you_want_to_improve_about_your_relationships_by_using_astrology',
       list: [
         {

@@ -229,22 +229,14 @@ const sign = (day, month) => {
 
       <div v-else-if="currentSectionStep === 3">
         <div class="select-list">
-          <el-select
-            v-model="placeOfBirdth.country"
-            placeholder="Enter country"
-            size="large"
-            filterable
-            remote
-            reserve-keyword
-            :remote-method="remoteMethod"
-          >
-            <el-option v-for="item in options" :key="item.code" :label="item.name" :value="item.name" />
+          <el-select v-model="placeOfBirdth.country" placeholder="Select Country" size="large" filterable>
+            <el-option v-for="item in countries" :key="item.code" :label="item.name" :value="item.name" />
           </el-select>
           <input v-model="placeOfBirdth.city" type="text" class="input" placeholder="Enter City" />
         </div>
         <div class="buttons-container">
           <Button
-            :text="'Skip this for now'"
+            :text="'Skip this'"
             :size="'small'"
             :gray="true"
             @click="

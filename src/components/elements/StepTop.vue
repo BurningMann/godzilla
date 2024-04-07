@@ -19,7 +19,12 @@ defineProps({
 
 <template>
   <div class="step-start-box">
-    <div v-if="currentStepData?.stepPrevtext" class="step-subtext" v-html="currentStepData.stepPrevtext" />
+    <div
+      v-if="currentStepData?.stepPrevtext"
+      class="step-subtext"
+      :class="{ 'is-large': currentStepData.textSize === 'large' }"
+      v-html="currentStepData.stepPrevtext"
+    />
     <div
       v-if="localTitle || currentStepData?.stepTitle"
       class="step-title"
@@ -28,6 +33,7 @@ defineProps({
     <div
       v-if="localSubtext || currentStepData?.stepSubtext"
       class="step-subtext"
+      :class="{ 'is-large': currentStepData.textSize === 'large' }"
       v-html="localSubtext || currentStepData.stepSubtext"
     />
   </div>

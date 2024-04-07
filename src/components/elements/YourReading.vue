@@ -58,13 +58,11 @@ const statsList = {
 }
 
 function getPartnerText(sign, partner_sign) {
-  console.log(sign, partner_sign)
   const result = CompatibilityReading.find(
     (el) =>
       (el.firstsign === sign || el.secondsign === sign) &&
-      (el.secondsign === partner_sign || el.secondsign === partner_sign)
+      (el.firstsign === partner_sign || el.secondsign === partner_sign)
   )
-  console.log(result)
   return result?.text
 }
 </script>
@@ -80,8 +78,8 @@ function getPartnerText(sign, partner_sign) {
       </div>
     </div>
     <div v-else class="your-reading__top">
-      <img src="/images/sun-large.png" alt="" />
-      <img :src="`./images/sign/${signList[appData.sign]?.image}`" />
+      <div class="your-reading__sun"><img src="/images/sun-large.png" alt="" /></div>
+      <div class="your-reading__image"><img :src="`./images/sign/${signList[appData.sign]?.image}`" /></div>
     </div>
     <div class="your-reading__content">
       <div class="your-reading__content-title">
@@ -111,22 +109,21 @@ function getPartnerText(sign, partner_sign) {
           </div>
         </div>
       </div>
-      <div
-        v-if="appData.relationshipType === 'partner'"
-        class="your-reading__description"
-        v-html="getPartnerText(appData.sign, appData.partner_sign)"
-      />
-      <div v-else class="your-reading__description">
-        <div v-html="signList[appData.sign]?.personality[appData.gender]" />
+      <div class="your-reading__description">
+        <div
+          class="your-reading__description-inner"
+          v-if="appData.relationshipType === 'partner'"
+          v-html="getPartnerText(appData.sign, appData.partner_sign)"
+        />
+        <div v-else v-html="signList[appData.sign]?.personality[appData.gender]" />
+        <div class="your-reading__overlay">
+          <div class="purple-text-1 your-reading__overlay-title">
+            To read the full report, you <br />
+            need to get access
+          </div>
+          <Button :text="'GET MY READING'" @click="emit('getReading')" :pulse="true" />
+        </div>
       </div>
-    </div>
-
-    <div class="your-reading__overlay">
-      <div class="purple-text-1 your-reading__overlay-title">
-        To read the full report, you <br />
-        need to get access
-      </div>
-      <Button :text="'GET MY READING'" @click="emit('getReading')" />
     </div>
   </div>
 </template>
@@ -151,9 +148,17 @@ function getPartnerText(sign, partner_sign) {
     line-height: 130%;
   }
 
+  &__image {
+    height: 30rem;
+  }
+
+  &__sun {
+    width: 12.6rem;
+  }
+
   &__content {
     background: linear-gradient(180deg, #f5eaf7 0%, #fbf4fb 100%);
-    padding: 2.5rem var(--container-padding);
+    padding: 2.5rem var(--container-padding) 0;
 
     &-title {
       color: var(--c-black);
@@ -178,13 +183,19 @@ function getPartnerText(sign, partner_sign) {
   }
 
   &__description {
-    color: var(--c-black);
-    font-size: 1.4rem;
-    white-space: pre-line;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 19;
-    -webkit-box-orient: vertical;
+    position: relative;
+    margin: 0 -2rem;
+    padding: 0 2rem;
+
+    &-inner {
+      overflow: hidden;
+      color: var(--c-black);
+      font-size: 1.4rem;
+      white-space: pre-line;
+      display: -webkit-box;
+      -webkit-line-clamp: 19;
+      -webkit-box-orient: vertical;
+    }
   }
 
   &__overlay {
@@ -192,7 +203,7 @@ function getPartnerText(sign, partner_sign) {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 44rem;
+    height: calc(100% + 5rem);
     background: linear-gradient(180deg, rgba(245, 234, 247, 0.8) 0%, #f5eaf7 100%);
     display: flex;
     flex-direction: column;

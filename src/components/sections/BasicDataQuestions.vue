@@ -37,7 +37,7 @@ const prevStep = () => {
 const dateOfBirth = ref('')
 const timeOfBirth = ref('')
 const placeOfBirdth = ref({
-  country: '',
+  country: 'United States',
   city: '',
 })
 
@@ -57,6 +57,7 @@ const sectionStepData = ref([
   {
     stepTitle: 'Which statement best describes you?',
     stepPrevtext: '',
+    textSize: 'large',
     type: 'list',
     slug: 'which_statement_best_describes_you',
     list: [
@@ -124,8 +125,8 @@ const sectionStepData = ref([
   },
   {
     resultImage: 'result-4.jpg',
-    resultTitle: `Almost there! <br>  Now let’s personalize your plan by revealing your relationship patterns.`,
-    resultContent: `Please take your time to answer thoughtfully. <br> Each response helps us craft a tailored plan for your success.`,
+    resultTitle: `Almost there! <br> Now let’s begin tailoring your plan by understanding your relationship patterns`,
+    resultContent: `Please take your time to answer thoughtfully. Each response helps us craft a tailored guidance plan for you and your partner.`,
     resultButtonText: `Continue`,
     type: 'result',
     fullScreenPage: true,
@@ -324,21 +325,13 @@ onMounted(() => {
         </div>
         <div v-else-if="sectionStepData[currentSectionStep]?.slug === 'where_was_your_partner_born'">
           <div class="select-list">
-            <el-select
-              v-model="placeOfBirdth.country"
-              placeholder="Enter country"
-              size="large"
-              filterable
-              remote
-              reserve-keyword
-              :remote-method="remoteMethod"
-            >
-              <el-option v-for="item in options" :key="item.code" :label="item.name" :value="item.name" />
+            <el-select v-model="placeOfBirdth.country" placeholder="Select Country" size="large" filterable>
+              <el-option v-for="item in countries" :key="item.code" :label="item.name" :value="item.name" />
             </el-select>
             <input v-model="placeOfBirdth.city" type="text" class="input" placeholder="Enter City" />
           </div>
           <div class="buttons-container">
-            <Button :text="'Skip this for now'" :size="'small'" :gray="true" @click="nextStep" />
+            <Button :text="'Skip this'" :size="'small'" :gray="true" @click="nextStep" />
             <Button
               :text="'Next'"
               :size="'small'"

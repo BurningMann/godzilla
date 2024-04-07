@@ -73,6 +73,7 @@ const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
   &__image {
     display: flex;
     justify-content: center;
+    height: 30rem;
   }
 
   &__content {

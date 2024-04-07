@@ -210,7 +210,7 @@ onMounted(() => {
   padding-top: 7rem;
   padding-left: var(--container-padding);
   padding-right: var(--container-padding);
-  padding-bottom: 30rem;
+  padding-bottom: 35rem;
 
   &__top {
     margin-bottom: 2.5rem;

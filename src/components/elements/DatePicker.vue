@@ -395,7 +395,7 @@ onMounted(() => {
       }
     }
 
-    select(value) {
+    select(value, useTransition) {
       for (let i = 0; i < this.source.length; i++) {
         if (this.source[i].value === value) {
           window.cancelAnimationFrame(this.moveT)
@@ -403,7 +403,7 @@ onMounted(() => {
           let initScroll = this._normalizeScroll(this.scroll)
           let finalScroll = i
           let t = Math.sqrt(Math.abs((finalScroll - initScroll) / this.a))
-          this._animateToScroll(initScroll, finalScroll, t)
+          this._animateToScroll(initScroll, finalScroll, useTransition ? t : 0)
           setTimeout(() => this._selectByScroll(i))
           return
         }
@@ -529,11 +529,11 @@ onMounted(() => {
 
   let now = new Date()
 
-  /*   setTimeout(function () {
-    yearSelector.select(now.getFullYear())
-    monthSelector.select(now.getMonth() + 1)
-    daySelector.select(now.getDate())
-  }) */
+  setTimeout(function () {
+    yearSelector.select(1990, false)
+    /*   monthSelector.select(now.getMonth() + 1)
+    daySelector.select(now.getDate()) */
+  })
 })
 </script>
 

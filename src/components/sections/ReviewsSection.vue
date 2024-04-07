@@ -91,7 +91,7 @@ onMounted(() => {
   background: linear-gradient(180deg, #1e0939 0%, #743072 100%);
   min-height: 100svh;
   padding-top: 7rem;
-  padding-bottom: 30rem;
+  padding-bottom: 35rem;
   padding-left: var(--container-padding);
   padding-right: var(--container-padding);
 

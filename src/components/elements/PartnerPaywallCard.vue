@@ -121,7 +121,7 @@ const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
   }
 
   &__image-pic {
-    max-width: 11.5rem;
+    max-width: 13rem;
   }
 
   &__content {

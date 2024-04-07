@@ -60,6 +60,9 @@ const setData = (value) => {
 </template>
 
 <style scoped lang="scss">
+.step-title {
+  font-size: 1.6rem;
+}
 .index-landing {
   background: var(--c-white);
 }

@@ -39,6 +39,7 @@ const sectionStepData = ref([
   {
     stepTitle: 'However, how did your previous relationship make you feel?',
     stepPrevtext: '',
+    textSize: 'large',
     type: 'list',
     slug: 'however_how_did_your_previous_relationship_make_you_feel',
     list: [
@@ -63,6 +64,8 @@ const sectionStepData = ref([
   {
     stepTitle: 'Do you relate with this statement?',
     stepSubtext: '«I find solace and comfort in spending time alone»',
+    textSize: 'large',
+    gradePostfix: 'Totally',
     type: 'grading',
     slug: 'do_you_agree_with_this_statement',
   },
@@ -94,6 +97,29 @@ const sectionStepData = ref([
     ],
   },
   {
+    stepTitle: 'Are you sensitive to criticism?',
+    type: 'list',
+    slug: 'are_you_sensitive_to_criticism',
+    list: [
+      {
+        label: 'Yes',
+        value: 'Yes',
+      },
+      {
+        label: 'Sometimes',
+        value: 'Sometimes',
+      },
+      {
+        label: 'Rarely',
+        value: 'Rarely',
+      },
+      {
+        label: 'Not at all',
+        value: 'Not at all',
+      },
+    ],
+  },
+  {
     stepTitle: 'Do you tend to overthink?',
     type: 'list',
     slug: 'do_you_tend_to_overthink',
@@ -110,7 +136,7 @@ const sectionStepData = ref([
   },
   {
     stepTitle: 'What is most important to you?',
-    type: 'list',
+    type: 'multipleList',
     slug: 'what_is_most_important_to_you',
     list: [
       {

@@ -44,7 +44,7 @@ const getList = [
 
 const showPayment = ref(false)
 
-const count = 1
+const count = 8
 const started = ref(false)
 const timerData = ref({
   min: 0,
@@ -68,7 +68,7 @@ function startTimer() {
     timerData.value.min = min
     timerData.value.sec = sec
 
-    if (remain <= 0) {
+    if (remain <= 1) {
       clearInterval(countdown)
     }
   }, 1000)
@@ -123,9 +123,9 @@ onMounted(() => {
         <div class="pay-offer">
           <div class="pay-offer__top">Special offer</div>
           <div class="pay-offer__title">
-            <strong
-              >Personalized reading for <span class="purple-text-1">${{ appData.currentPrice }}</span></strong
-            >
+            <strong>
+              Personalized reading for <span class="purple-text-1">${{ appData.currentPrice }}</span>
+            </strong>
           </div>
           <div class="pay-offer__table">
             <div class="pay-offer__row">
@@ -139,12 +139,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <Button
-          :text="`GET MY READING FOR $${appData.currentPrice}`"
-          class="payment-button"
-          :pulse="true"
-          @click="showPayment = true"
-        />
+        <Button :text="`GET MY READING`" class="payment-button" :pulse="true" @click="showPayment = true" />
 
         <div class="payment-text">
           Your plan will be available immediately after registration. No hidden payments.
@@ -287,7 +282,6 @@ onMounted(() => {
       v-show="showPayment"
       @close="showPayment = false"
       :timer="timerData"
-      :old-price="7.99"
       :price="appData.currentPrice"
       :title="'Start your 7-day trial'"
       :footer-text="`Your plan will be available immediately after registration. No hidden payments. <strong>Today you will be charged €1 for 7-days trial</strong> , then €39.99 after trial for your 30-Day plan.`"

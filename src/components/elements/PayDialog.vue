@@ -102,8 +102,8 @@ onMounted(() => {
         <div class="pay-dialog__row">
           <div>Total today:</div>
           <div class="pay-dialog__row-price">
-            <span class="old-price">${{ oldPrice }}</span
-            ><strong>${{ price }}</strong>
+            <span v-if="oldPrice" class="old-price">${{ oldPrice }}</span>
+            <strong>${{ price }}</strong>
           </div>
         </div>
         <div class="pay-dialog__row">

@@ -84,11 +84,17 @@ const viewButton = computed(() => {
 
   &.is-pulse {
     box-shadow: 0 0 0 0 rgba(100, 43, 114, 0.7);
-    animation: pulse 1.2s ease-in-out infinite;
+    transform: scale(0.9);
+    animation: pulse 2s ease infinite;
 
     @keyframes pulse {
-      to {
-        box-shadow: 0 0 0 7px rgba(100, 43, 114, 0);
+      70% {
+        box-shadow: 0 0 0 5px rgba(100, 43, 114, 0.3);
+        transform: scale(1);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(100, 43, 114, 0.3);
+        transform: scale(0.9);
       }
     }
   }

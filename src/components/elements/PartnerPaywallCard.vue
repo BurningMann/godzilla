@@ -5,7 +5,7 @@ import { useMainStore } from '../../stores/main'
 const store = useMainStore()
 const { appData, signList } = storeToRefs(store)
 
-const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 </script>
 
 <template>
@@ -37,9 +37,9 @@ const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
           <div class="paywall-card__box-title">Date of birth</div>
           <div class="paywall-card__box-value purple-text-1">
             <strong>
-              {{ monthNames[appData.date_of_birth.month] }}
-              {{ appData.date_of_birth.day }}
-              {{ appData.date_of_birth.year }}
+              {{ monthNames[appData.date_of_birth?.month] }}
+              {{ appData.date_of_birth?.day }}
+              {{ appData.date_of_birth?.year }}
             </strong>
           </div>
         </div>
@@ -67,9 +67,9 @@ const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
           <div class="paywall-card__box-title">Date of birth</div>
           <div class="paywall-card__box-value purple-text-1">
             <strong>
-              {{ monthNames[appData.basic_data_questions.what_is_your_partner_date_of_birth.month] }}
-              {{ appData.basic_data_questions.what_is_your_partner_date_of_birth.day }}
-              {{ appData.basic_data_questions.what_is_your_partner_date_of_birth.year }}
+              {{ monthNames[appData.basic_data_questions?.what_is_your_partner_date_of_birth?.month] }}
+              {{ appData.basic_data_questions?.what_is_your_partner_date_of_birth?.day }}
+              {{ appData.basic_data_questions?.what_is_your_partner_date_of_birth?.year }}
             </strong>
           </div>
         </div>

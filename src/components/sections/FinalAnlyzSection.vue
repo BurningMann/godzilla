@@ -23,8 +23,8 @@ const reviewsData = {
   ],
   Male: [
     {
-      name: 'Daniel A.',
-      text: `I’ve always been curious about astrology, but never thought I can find smth real on until I found this. It’s a real game-changer! The readings are comprehensive and helpful in planning my future.`,
+      name: 'Sabrina',
+      text: `“It’s scary how accurate this reading is. I can’t believe it. I never write reviews but I really needed to with this one. I love it, it helped me so much to understand myself and my partner.”`,
       stars: 5,
     },
   ],

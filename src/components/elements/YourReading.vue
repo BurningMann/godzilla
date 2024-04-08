@@ -58,12 +58,17 @@ const statsList = {
 }
 
 function getPartnerText(sign, partner_sign) {
-  const result = CompatibilityReading.find(
-    (el) =>
-      (el.firstsign === sign || el.secondsign === sign) &&
-      (el.firstsign === partner_sign || el.secondsign === partner_sign)
-  )
-  return result?.text
+  const first = CompatibilityReading.filter((el) => el.firstsign === sign || el.secondsign === sign)
+  console.log(first.filter((el) => el.firstsign === partner_sign || el.secondsign === partner_sign))
+  if (sign === partner_sign) {
+    return CompatibilityReading.find((el) => el.firstsign === sign && el.secondsign === sign)?.text
+  } else {
+    return CompatibilityReading.find(
+      (el) =>
+        (el.firstsign === sign || el.secondsign === sign) &&
+        (el.firstsign === partner_sign || el.secondsign === partner_sign)
+    )?.text
+  }
 }
 </script>
 
@@ -111,11 +116,15 @@ function getPartnerText(sign, partner_sign) {
       </div>
       <div class="your-reading__description">
         <div
-          class="your-reading__description-inner"
           v-if="appData.relationshipType === 'partner'"
+          class="your-reading__description-inner"
           v-html="getPartnerText(appData.sign, appData.partner_sign)"
         />
-        <div v-else v-html="signList[appData.sign]?.personality[appData.gender]" />
+        <div
+          v-else
+          class="your-reading__description-inner"
+          v-html="signList[appData.sign]?.personality[appData.gender]"
+        />
         <div class="your-reading__overlay">
           <div class="purple-text-1 your-reading__overlay-title">
             To read the full report, you <br />
@@ -149,7 +158,7 @@ function getPartnerText(sign, partner_sign) {
   }
 
   &__image {
-    height: 30rem;
+    max-height: 30rem;
   }
 
   &__sun {

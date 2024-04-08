@@ -62,7 +62,7 @@ const sectionStepData = ref([
     ],
   },
   {
-    stepTitle: 'Do you relate with this statement?',
+    stepTitle: 'Do you agree with this statement?',
     stepSubtext: '«I find solace and comfort in spending time alone»',
     textSize: 'large',
     gradePostfix: 'Totally',

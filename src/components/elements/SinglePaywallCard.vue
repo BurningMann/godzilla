@@ -5,7 +5,7 @@ import { useMainStore } from '../../stores/main'
 const store = useMainStore()
 const { appData, signList } = storeToRefs(store)
 
-const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 </script>
 
 <template>

@@ -71,7 +71,7 @@ const sectionStepData = [
   {
     stepTitle: 'Do you often worry that you are not good enough?',
     slug: 'do_you_often_worry_that_you_are_not_good_enough',
-    type: 'multipleList',
+    type: 'list',
     list: [
       {
         label: 'Yes! I do something I love',

@@ -40,7 +40,7 @@ const timeOfBirthSwith = ref(null)
 const dateOfBirth = ref('')
 const timeOfBirth = ref('')
 const placeOfBirdth = ref({
-  country: '',
+  country: 'United States',
   city: '',
 })
 

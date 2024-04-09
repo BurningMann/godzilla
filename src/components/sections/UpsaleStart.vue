@@ -149,7 +149,7 @@ onMounted(() => {
       @click="showPayment = true"
     />
 
-    <div class="skip-btn" @click="skip">Skip this offer and proceed furher</div>
+    <div class="skip-btn" @click="skip">Skip this offer and proceed further</div>
 
     <div class="page-text">
       * Your account will be charged immediately for the add-on services or products selected. Add-on items do not come

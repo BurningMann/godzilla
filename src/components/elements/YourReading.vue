@@ -158,7 +158,9 @@ function getPartnerText(sign, partner_sign) {
   }
 
   &__image {
-    max-height: 30rem;
+    img {
+      max-height: 30rem;
+    }
   }
 
   &__sun {

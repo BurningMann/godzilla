@@ -10,7 +10,7 @@ const { currentStep, appData } = storeToRefs(store)
 const stepsText = [
   'Analyzing your profile ...',
   'Creating your astrological blueprint ...',
-  'Cross-cheking with similar health profiles ...',
+  'Cross-checking with similar health profiles ...',
 ]
 
 const reviewsData = {

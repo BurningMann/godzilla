@@ -6,6 +6,7 @@ import PartnerPaywallCard from '../elements/PartnerPaywallCard.vue'
 import PaymentVariant from '../elements/PaymentVariant.vue'
 import PayDialog from '../elements/PayDialog.vue'
 import YourReading from '../elements/YourReading.vue'
+import LogosMarquee from '../elements/LogosMarquee.vue'
 import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../../stores/main'
@@ -234,6 +235,7 @@ onMounted(() => {
     <section class="paywal-page__section">
       <div class="section-container">
         <StepTop :local-title="'As featured in'" />
+        <LogosMarquee />
       </div>
     </section>
     <section class="paywal-page__section">

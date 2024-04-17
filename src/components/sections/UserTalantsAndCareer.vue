@@ -126,7 +126,7 @@ const sectionStepData = [
     ],
   },
   {
-    resultImage: 'result-4.jpg',
+    resultImage: 'result-4.webp',
     resultTitle: `Almost there! <br>  Now let’s personalize your plan by revealing your relationship patterns.`,
     resultContent: `Please take your time to answer thoughtfully. <br> Each response helps us craft a tailored plan for your success.`,
     resultButtonText: `Continue`,

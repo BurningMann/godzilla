@@ -194,7 +194,7 @@ const sectionStepData = ref([
   },
   {
     type: 'result',
-    resultImage: 'result-3.jpg',
+    resultImage: 'result-3.webp',
     resultTitle: `You're known keeping your emotions in check, Taurus! However, others want to see a more passionate side of you.`,
     resultContent: `We have some insightful tips that can help you balance this! Ready for the next step?`,
     resultButtonText: 'Continue',

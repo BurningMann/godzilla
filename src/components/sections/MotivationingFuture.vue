@@ -148,7 +148,7 @@ const sectionStepData = {
           value: 'Heart',
           result: {
             type: 'result',
-            resultImage: 'result-9.jpg',
+            resultImage: 'result-9.webp',
             resultTitle: `Based on our data, 61% of people with Sun in Cancer also make decisions with their heart.`,
             resultContent: `Now get ready for valuable insights on building lasting and joyful relationships with yourself and others!`,
             resultButtonText: 'Great!',
@@ -161,7 +161,7 @@ const sectionStepData = {
           value: 'Head',
           result: {
             type: 'result',
-            resultImage: 'result-9.jpg',
+            resultImage: 'result-9.webp',
             resultTitle: `Based on our data, 39% of people with Sun in Cancer also make decisions with their head.`,
             resultContent: `Now get ready for valuable insights on building lasting and joyful relationships with yourself and others!`,
             resultButtonText: 'Great!',
@@ -174,7 +174,7 @@ const sectionStepData = {
           value: 'Both',
           result: {
             type: 'result',
-            resultImage: 'result-9.jpg',
+            resultImage: 'result-9.webp',
             resultTitle: `Based on our data, only 23% of people with Sun in Cancer also make decisions with both their head and heart.`,
             resultContent: `Now get ready for valuable insights on building lasting and joyful relationships with yourself and others!`,
             resultButtonText: 'Great!',
@@ -298,7 +298,7 @@ const sectionStepData = {
           value: 'Heart',
           result: {
             type: 'result',
-            resultImage: 'result-9.jpg',
+            resultImage: 'result-9.webp',
             resultTitle: `Based on our data, 61% of people with Sun in Cancer also make decisions with their heart.`,
             resultContent: `Now get ready for valuable insights on building lasting and joyful relationships with yourself and others!`,
             resultButtonText: 'Great!',
@@ -311,7 +311,7 @@ const sectionStepData = {
           value: 'Head',
           result: {
             type: 'result',
-            resultImage: 'result-9.jpg',
+            resultImage: 'result-9.webp',
             resultTitle: `Based on our data, 39% of people with Sun in Cancer also make decisions with their head.`,
             resultContent: `Now get ready for valuable insights on building lasting and joyful relationships with yourself and others!`,
             resultButtonText: 'Great!',
@@ -324,7 +324,7 @@ const sectionStepData = {
           value: 'Both',
           result: {
             type: 'result',
-            resultImage: 'result-9.jpg',
+            resultImage: 'result-9.webp',
             resultTitle: `Based on our data, only 23% of people with Sun in Cancer also make decisions with both their head and heart.`,
             resultContent: `Now get ready for valuable insights on building lasting and joyful relationships with yourself and others!`,
             resultButtonText: 'Great!',

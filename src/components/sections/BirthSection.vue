@@ -213,7 +213,7 @@ const sign = (day, month) => {
         </div>
         <div v-if="!appData.time_of_birth">
           <div class="result-page__image">
-            <img :src="'./images/dont-worry-result.jpg'" class="fit-cover" />
+            <img :src="'./images/dont-worry-result.webp'" class="fit-cover" />
           </div>
           <div class="result-page__content">
             <div class="result-page__title">Don't worry!</div>

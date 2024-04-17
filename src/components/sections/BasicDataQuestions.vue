@@ -124,7 +124,7 @@ const sectionStepData = ref([
     slug: 'where_was_your_partner_born',
   },
   {
-    resultImage: 'result-4.jpg',
+    resultImage: 'result-4.webp',
     resultTitle: `Almost there! <br> Now let’s begin tailoring your plan by understanding your relationship patterns`,
     resultContent: `Please take your time to answer thoughtfully. Each response helps us craft a tailored guidance plan for you and your partner.`,
     resultButtonText: `Continue`,
@@ -310,7 +310,7 @@ onMounted(() => {
           </div>
           <div v-else>
             <div class="result-page__image">
-              <img :src="'./images/dont-worry-result.jpg'" class="fit-cover" />
+              <img :src="'./images/dont-worry-result.webp'" class="fit-cover" />
             </div>
             <div class="result-page__content">
               <div class="result-page__title">No problem!</div>

@@ -126,7 +126,7 @@ const sectionStepData = [
   },
   {
     type: 'result',
-    resultImage: 'result-6.jpg',
+    resultImage: 'result-6.webp',
     resultTitle: `You’ve come to the right place!`,
     resultContent: `Knowing that your goal is already doable puts you ahead. Let’s keep going so we can build a guidance plan based on your astrological blueprint.`,
     resultButtonText: 'Continue',

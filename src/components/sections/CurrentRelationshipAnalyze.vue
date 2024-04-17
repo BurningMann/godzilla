@@ -116,7 +116,7 @@ const sectionStepData = ref([
         value: 'Yes',
         result: {
           type: 'result',
-          resultImage: 'result-7.jpg',
+          resultImage: 'result-7.webp',
           resultTitle: `Great to hear! <br> Based on our data only 26% of people with their Sun in Cancer find it easy to communicate with their Taurus partner!`,
           resultContent: `But there is always a room for improvement.`,
           resultButtonText: 'Continue',
@@ -128,7 +128,7 @@ const sectionStepData = ref([
         value: 'No',
         result: {
           type: 'result',
-          resultImage: 'result-7.jpg',
+          resultImage: 'result-7.webp',
           resultTitle: `You’re not alone. <br> Based on our data 74% of people with their Sun in Cancer find it difficult to communicate with their Taurus partner.`,
           resultContent: `But we can help you to improve this.`,
           resultButtonText: 'Continue',
@@ -304,7 +304,7 @@ const sectionStepData = ref([
         value: 'Cautious. I’ve struggled before, but I’m hopeful',
         result: {
           type: 'result',
-          resultImage: 'result-10.jpg',
+          resultImage: 'result-10.webp',
           resultTitle: `It’s totally normal to feel anxious, Cancer.`,
           resultContent: `But we know you can do this. Let’s keep going so we can create your personal guidance plan based on your astrological profile.`,
           resultButtonText: 'Continue',
@@ -316,7 +316,7 @@ const sectionStepData = ref([
         value: 'A little anxious, honestly',
         result: {
           type: 'result',
-          resultImage: 'result-10.jpg',
+          resultImage: 'result-10.webp',
           resultTitle: `It’s totally normal to feel anxious, Cancer.`,
           resultContent: `But we know you can do this. Let’s keep going so we can create your personal guidance plan based on your astrological profile.`,
           resultButtonText: 'Continue',
@@ -328,7 +328,7 @@ const sectionStepData = ref([
         value: 'Not sure',
         result: {
           type: 'result',
-          resultImage: 'result-10.jpg',
+          resultImage: 'result-10.webp',
           resultTitle: `It’s totally normal to feel anxious, Cancer.`,
           resultContent: `But we know you can do this. Let’s keep going so we can create your personal guidance plan based on your astrological profile.`,
           resultButtonText: 'Continue',
@@ -374,7 +374,7 @@ const sectionStepData = ref([
   },
   {
     type: 'result',
-    resultImage: 'result-5.jpg',
+    resultImage: 'result-5.webp',
     resultTitle: `Astrology plays a crucial role in uncovering compatibility with your partner`,
     resultContent: `We use a unique approach to assess and understand compatibility with the people around you. <br> <br> It’s based on: Ancient Wisdom, Personalized Insights, Understanding Dynamics and Self-Reflection. We have you covered!`,
     resultButtonText: 'Continue',

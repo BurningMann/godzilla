@@ -61,7 +61,7 @@ const stepsData = {
       resultTitle: 'Great! You just set your first goal!',
       resultContent: 'Let’s keep going so we can get to know <br> you better',
       resultButtonText: 'Let’s Start!',
-      resultImage: 'step-1-result.jpg',
+      resultImage: 'step-1-result.webp',
       fullScreenPage: true,
     },
     {
@@ -87,7 +87,7 @@ const stepsData = {
       componentName: ReviewsResultSection,
       resultTitle: 'To find out what works for us, we often need to understand what doesn’t.',
       resultButtonText: 'Let’s finish this!',
-      resultImage: 'result-2.jpg',
+      resultImage: 'result-2.webp',
       fullScreenPage: true,
     },
   ],

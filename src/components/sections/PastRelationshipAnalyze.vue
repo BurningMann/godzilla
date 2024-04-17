@@ -161,7 +161,7 @@ const sectionStepData = [
   },
   {
     type: 'result',
-    resultImage: 'result-5.jpg',
+    resultImage: 'result-5.webp',
     resultTitle: `Astrology plays a crucial role in uncovering compatibility with your partner`,
     resultContent: `We use a unique approach to assess and understand compatibility with the people around you. <br> It’s based on: Ancient Wisdom, Personalized Insights, Understanding Dynamics and Self-Reflection. We have you covered!`,
     resultButtonText: 'Continue',

@@ -171,6 +171,10 @@ h1 {
   color: var(--c-black);
   font-weight: 700;
   text-align: center;
+
+  &.is-white {
+    color: #fff;
+  }
 }
 
 .purple-text-1 {
@@ -213,6 +217,12 @@ h1 {
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-top: 3rem;
+}
+
+.buttons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
 }
 
 .footer-box {
@@ -522,6 +532,69 @@ h1 {
     position: absolute;
     right: 1.4rem;
     top: 1.4rem;
+    cursor: pointer;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+.cancel-allert-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  backdrop-filter: blur(15px);
+  background: rgba(0, 5, 33, 0.64);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.cancel-allert {
+  width: calc(100% - 3rem);
+  background: #000521;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 2rem;
+  position: relative;
+
+  &__title {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 2.1rem;
+  }
+
+  &__text {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #b6b4be;
+  }
+
+  &__body {
+    margin-bottom: 3rem;
+  }
+
+  &__close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
     cursor: pointer;
   }
 
